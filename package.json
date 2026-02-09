@@ -15,11 +15,16 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.1.18",
     "@tanstack/react-router": "^1.159.5",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "gray-matter": "^4.0.3",
+    "lucide-react": "^0.563.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-markdown": "^8.0.7",
-    "tailwindcss": "^4.1.18"
+    "tailwind-merge": "^3.4.0",
+    "tailwindcss": "^4.1.18",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@biomejs/biome": "2.3.14",
@@ -27,7 +32,7 @@
     "@tanstack/react-router-devtools": "^1.159.5",
     "@tanstack/router-cli": "^1.159.4",
     "@tanstack/router-plugin": "^1.159.5",
-    "@types/node": "^24.10.1",
+    "@types/node": "^24.10.12",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.1",
