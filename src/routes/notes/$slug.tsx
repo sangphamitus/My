@@ -1,24 +1,24 @@
 import { createFileRoute, Link, useParams } from "@tanstack/react-router";
-import { getPostBySlug } from "../../lib/posts";
+import { getNoteBySlug } from "../../lib/notes";
 import { TableOfContents } from "../../components/TableOfContents";
 import { MarkdownContent } from "../../components/MarkdownContent";
 
-export const Route = createFileRoute("/blogs/$slug")({
-	component: PostPage,
+export const Route = createFileRoute("/notes/$slug")({
+	component: NotePage,
 });
 
-function PostPage() {
-	const params = useParams({ from: "/blogs/$slug" });
+function NotePage() {
+	const params = useParams({ from: "/notes/$slug" });
 	const slug = params.slug || "";
-	const post = getPostBySlug(slug);
+	const note = getNoteBySlug(slug);
 
-	if (!post) {
+	if (!note) {
 		return (
 			<div className="paper not-found">
-				<h1>Post not found</h1>
-				<p>The post you're looking for doesn't exist.</p>
-				<Link to="/blogs" className="not-found-link">
-					Back to Blog
+				<h1>Note not found</h1>
+				<p>The note you're looking for doesn't exist.</p>
+				<Link to="/notes" className="not-found-link">
+					Back to Notes
 				</Link>
 			</div>
 		);
@@ -26,7 +26,7 @@ function PostPage() {
 
 	return (
 		<div>
-			<Link to="/blogs" className="back-link">
+			<Link to="/notes" className="back-link">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					width="16"
@@ -41,17 +41,17 @@ function PostPage() {
 					<line x1="19" y1="12" x2="5" y2="12" />
 					<polyline points="12 19 5 12 12 5" />
 				</svg>
-				Back to Blog
+				Back to Notes
 			</Link>
 
 			<article className="paper">
 				<header className="article-header">
-					<h1 className="article-title">{post.title}</h1>
+					<h1 className="article-title">{note.title}</h1>
 					<div className="article-meta">
-						{post.date && <span>{post.date}</span>}
-						{post.tags && post.tags.length > 0 && (
+						{note.date && <span>{note.date}</span>}
+						{note.tags && note.tags.length > 0 && (
 							<div className="tags">
-								{post.tags.map((tag) => (
+								{note.tags.map((tag) => (
 									<span key={tag} className="tag">
 										{tag}
 									</span>
@@ -61,9 +61,9 @@ function PostPage() {
 					</div>
 				</header>
 
-				{post.toc.length > 0 && <TableOfContents items={post.toc} />}
+				{note.toc.length > 0 && <TableOfContents items={note.toc} />}
 
-				<MarkdownContent content={post.content} basePath={post.basePath} />
+				<MarkdownContent content={note.content} basePath={note.basePath} />
 			</article>
 		</div>
 	);

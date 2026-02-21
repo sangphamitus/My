@@ -3,22 +3,44 @@ import { createFileRoute } from "@tanstack/react-router";
 export const Route = createFileRoute("/about")({
 	component: About,
 });
+
 function About() {
 	return (
-		<div className="page-wrap">
-			<div className="paper">
-				<h1>About</h1>
+		<div className="paper">
+			<h1>About</h1>
+			<div className="about-content">
 				<p>
-					This is a minimal blog demo created with Vite + TanStack Router +
-					Tailwind CSS.
+					Welcome to my personal space on the web. This is where I share my
+					thoughts, document my learning journey, and keep notes on what I'm
+					working on.
 				</p>
-				<h2>Features</h2>
+
+				<h2>What You'll Find Here</h2>
 				<ul>
-					<li>Markdown support for blog posts</li>
-					<li>Tag system for organizing content</li>
-					<li>Dark and light theme support</li>
-					<li>Paper-like design with responsive layout</li>
-					<li>Fast and lightweight</li>
+					<li>
+						<strong>Blog</strong> — Long-form articles on topics I find
+						interesting
+					</li>
+					<li>
+						<strong>Notes</strong> — A timeline of quick notes and logs of what
+						I'm working on or learning
+					</li>
+				</ul>
+
+				<h2>About This Site</h2>
+				<p>
+					This site is built with simplicity in mind, inspired by the feel of
+					paper. It supports both light and dark themes, and all content is
+					written in Markdown.
+				</p>
+
+				<h3>Tech Stack</h3>
+				<ul>
+					<li>React with TypeScript</li>
+					<li>TanStack Router for file-based routing</li>
+					<li>Tailwind CSS for styling</li>
+					<li>Vite for development</li>
+					<li>Markdown for content</li>
 				</ul>
 			</div>
 		</div>
