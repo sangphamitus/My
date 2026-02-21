@@ -1,11 +1,15 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { createFileRoute } from "@tanstack/react-router";
+import { useState, useMemo } from "react";
+import { getAllNotes, getNotesGroupedByDate, getUniqueTopics } from "../../lib/notes";
 import { SearchInput } from "../../components/SearchInput";
 import {
-	getAllNotes,
-	getNotesGroupedByDate,
-	getUniqueTopics,
-} from "../../lib/notes";
+	Paper,
+	PageHeader,
+	FilterTags,
+	PostList,
+	GroupedTimeline,
+	EmptyState,
+} from "../../components/ui";
 
 export const Route = createFileRoute("/notes/")({
 	component: NotesPage,
@@ -55,13 +59,20 @@ function NotesPage() {
 		return result;
 	}, [allNotes, activeTag, activeTopic, searchQuery]);
 
+	const getEmptyMessage = () => {
+		if (searchQuery) return `No notes matching "${searchQuery}".`;
+		if (activeTopic) return `No notes in topic "${activeTopic}".`;
+		if (activeTag) return `No notes with tag "${activeTag}".`;
+		return "No notes yet.";
+	};
+
 	return (
 		<div>
-			<div className="paper">
-				<h1>Notes</h1>
-				<p className="post-excerpt" style={{ marginTop: "-0.5rem" }}>
-					A timeline of what I'm working on, learning, and exploring.
-				</p>
+			<Paper>
+				<PageHeader
+					title="Notes"
+					description="A timeline of what I'm working on, learning, and exploring."
+				/>
 
 				<div className="filter-section" style={{ marginTop: "1.5rem" }}>
 					<SearchInput
@@ -71,160 +82,32 @@ function NotesPage() {
 					/>
 				</div>
 
-				{allTopics.length > 0 && (
-					<div className="filter-section">
-						<span className="filter-label">Filter by topic</span>
-						<div className="filter-tags">
-							<button
-								type="button"
-								className={`filter-tag ${activeTopic === null ? "active" : ""}`}
-								onClick={() => setActiveTopic(null)}
-							>
-								All
-							</button>
-							{allTopics.map((topic) => (
-								<button
-									type="button"
-									key={topic}
-									className={`filter-tag ${activeTopic === topic ? "active" : ""}`}
-									onClick={() => setActiveTopic(topic)}
-								>
-									{topic}
-								</button>
-							))}
-						</div>
-					</div>
-				)}
+				<FilterTags
+					label="Filter by topic"
+					items={allTopics}
+					activeItem={activeTopic}
+					onSelect={setActiveTopic}
+				/>
 
-				{allTags.length > 0 && (
-					<div className="filter-section">
-						<span className="filter-label">Filter by tag</span>
-						<div className="filter-tags">
-							<button
-								type="button"
-								className={`filter-tag ${activeTag === null ? "active" : ""}`}
-								onClick={() => setActiveTag(null)}
-							>
-								All
-							</button>
-							{allTags.map((tag) => (
-								<button
-									type="button"
-									key={tag}
-									className={`filter-tag ${activeTag === tag ? "active" : ""}`}
-									onClick={() => setActiveTag(tag)}
-								>
-									{tag}
-								</button>
-							))}
-						</div>
-					</div>
-				)}
+				<FilterTags
+					label="Filter by tag"
+					items={allTags}
+					activeItem={activeTag}
+					onSelect={setActiveTag}
+				/>
 
 				{isFiltering ? (
 					filteredNotes.length === 0 ? (
-						<p className="empty-state">
-							{searchQuery
-								? `No notes matching "${searchQuery}".`
-								: activeTopic
-									? `No notes in topic "${activeTopic}".`
-									: `No notes with tag "${activeTag}".`}
-						</p>
+						<EmptyState message={getEmptyMessage()} />
 					) : (
-						<ul className="post-list">
-							{filteredNotes.map((note) => (
-								<li key={note.slug} className="post-item">
-									<Link to={`/notes/${note.slug}`} className="post-title">
-										{note.title}
-									</Link>
-									<div className="post-meta">
-										{note.date && (
-											<span className="post-date">{note.date}</span>
-										)}
-										{note.topic && (
-											<Link to={`/topics/${note.topic}`} className="topic-link">
-												{note.topic}
-											</Link>
-										)}
-										{note.tags && note.tags.length > 0 && (
-											<div className="tags">
-												{note.tags.map((tag) => (
-													<span key={tag} className="tag">
-														{tag}
-													</span>
-												))}
-											</div>
-										)}
-									</div>
-								</li>
-							))}
-						</ul>
+						<PostList posts={filteredNotes} basePath="/notes" />
 					)
 				) : groupedNotes.length === 0 ? (
-					<p className="empty-state">No notes yet.</p>
+					<EmptyState message="No notes yet." />
 				) : (
-					<div className="timeline">
-						{groupedNotes.map((yearGroup) => (
-							<div key={yearGroup.year} className="timeline-year">
-								<div className="timeline-year-label">{yearGroup.year}</div>
-								{yearGroup.months.map((monthGroup) => (
-									<div key={monthGroup.month} className="timeline-month">
-										<div className="timeline-month-label">
-											{monthGroup.month}
-										</div>
-										<div className="timeline-items">
-											{monthGroup.notes.map((note) => (
-												<div key={note.slug} className="timeline-item">
-													<div className="timeline-dot" />
-													<div className="timeline-content">
-														<Link
-															to={`/notes/${note.slug}`}
-															className="timeline-title"
-														>
-															{note.title}
-														</Link>
-														<div className="timeline-meta">
-															<span className="timeline-date">
-																{new Date(note.date).toLocaleDateString(
-																	"en-US",
-																	{
-																		month: "short",
-																		day: "numeric",
-																	},
-																)}
-															</span>
-															{note.topic && (
-																<Link
-																	to={`/topics/${note.topic}`}
-																	className="topic-link"
-																>
-																	{note.topic}
-																</Link>
-															)}
-															{note.tags && note.tags.length > 0 && (
-																<div className="tags">
-																	{note.tags.map((tag) => (
-																		<span key={tag} className="tag">
-																			{tag}
-																		</span>
-																	))}
-																</div>
-															)}
-														</div>
-														{note.excerpt && (
-															<p className="timeline-excerpt">{note.excerpt}</p>
-														)}
-													</div>
-												</div>
-											))}
-										</div>
-									</div>
-								))}
-							</div>
-						))}
-					</div>
+					<GroupedTimeline groups={groupedNotes} basePath="/notes" />
 				)}
-			</div>
+			</Paper>
 		</div>
 	);
 }

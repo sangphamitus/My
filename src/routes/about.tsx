@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Paper, PageHeader } from "../components/ui";
 
 export const Route = createFileRoute("/about")({
 	component: About,
@@ -6,8 +7,8 @@ export const Route = createFileRoute("/about")({
 
 function About() {
 	return (
-		<div className="paper">
-			<h1>About</h1>
+		<Paper>
+			<PageHeader title="About" />
 			<div className="about-content">
 				<p>
 					Welcome to my personal space on the web. This is where I share my
@@ -24,6 +25,9 @@ function About() {
 					<li>
 						<strong>Notes</strong> — A timeline of quick notes and logs of what
 						I'm working on or learning
+					</li>
+					<li>
+						<strong>Topics</strong> — Projects and areas organized by status
 					</li>
 				</ul>
 
@@ -43,6 +47,6 @@ function About() {
 					<li>Markdown for content</li>
 				</ul>
 			</div>
-		</div>
+		</Paper>
 	);
 }

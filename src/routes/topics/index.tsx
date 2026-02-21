@@ -1,10 +1,13 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { getAllTopics, topicStatusLabels, type TopicStatus } from "../../lib/topics";
 import {
-	getAllTopics,
-	topicStatusLabels,
-	type TopicStatus,
-} from "../../lib/topics";
+	Paper,
+	PageHeader,
+	FilterTags,
+	TopicGrid,
+	EmptyState,
+} from "../../components/ui";
 
 export const Route = createFileRoute("/topics/")({
 	component: TopicsPage,
@@ -35,70 +38,29 @@ function TopicsPage() {
 
 	return (
 		<div>
-			<div className="paper">
-				<h1>Topics</h1>
-				<p className="post-excerpt" style={{ marginTop: "-0.5rem" }}>
-					Projects and areas I'm exploring, organized by status.
-				</p>
+			<Paper>
+				<PageHeader
+					title="Topics"
+					description="Projects and areas I'm exploring, organized by status."
+				/>
 
-				<div className="filter-section" style={{ marginTop: "1.5rem" }}>
-					<span className="filter-label">Filter by status</span>
-					<div className="filter-tags">
-						<button
-							type="button"
-							className={`filter-tag ${activeStatus === null ? "active" : ""}`}
-							onClick={() => setActiveStatus(null)}
-						>
-							All
-						</button>
-						{statusOrder.map((status) => (
-							<button
-								type="button"
-								key={status}
-								className={`filter-tag status-filter-${status} ${activeStatus === status ? "active" : ""}`}
-								onClick={() => setActiveStatus(status)}
-							>
-								{topicStatusLabels[status]}
-							</button>
-						))}
-					</div>
+				<div style={{ marginTop: "1.5rem" }}>
+					<FilterTags
+						label="Filter by status"
+						items={statusOrder}
+						activeItem={activeStatus}
+						onSelect={setActiveStatus}
+						getLabel={(status) => topicStatusLabels[status]}
+						getClassName={(status) => `status-filter-${status}`}
+					/>
 				</div>
 
 				{sortedTopics.length === 0 ? (
-					<p className="empty-state">No topics found.</p>
+					<EmptyState message="No topics found." />
 				) : (
-					<div className="topics-grid">
-						{sortedTopics.map((topic) => (
-							<Link
-								key={topic.slug}
-								to={`/topics/${topic.slug}`}
-								className="topic-card"
-							>
-								<div className="topic-card-header">
-									<h3 className="topic-card-title">{topic.name}</h3>
-									<span className={`status-badge status-${topic.status}`}>
-										{topicStatusLabels[topic.status]}
-									</span>
-								</div>
-								{topic.description && (
-									<p className="topic-card-desc">{topic.description}</p>
-								)}
-								<div className="topic-card-meta">
-									<span>{topic.posts.length} posts</span>
-									<span>·</span>
-									<span>{topic.notes.length} notes</span>
-									{topic.lastUpdated && (
-										<>
-											<span>·</span>
-											<span>Updated {topic.lastUpdated}</span>
-										</>
-									)}
-								</div>
-							</Link>
-						))}
-					</div>
+					<TopicGrid topics={sortedTopics} />
 				)}
-			</div>
+			</Paper>
 		</div>
 	);
 }

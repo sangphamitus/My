@@ -1,5 +1,15 @@
-import { createFileRoute, Link, useParams } from "@tanstack/react-router";
-import { getTopicBySlug, topicStatusLabels } from "../../lib/topics";
+import { createFileRoute, useParams } from "@tanstack/react-router";
+import { getTopicBySlug } from "../../lib/topics";
+import {
+	Paper,
+	BackLink,
+	SectionHeader,
+	StatusBadge,
+	PostList,
+	Timeline,
+	EmptyState,
+	NotFound,
+} from "../../components/ui";
 
 export const Route = createFileRoute("/topics/$slug")({
 	component: TopicPage,
@@ -12,125 +22,49 @@ function TopicPage() {
 
 	if (!topic) {
 		return (
-			<div className="paper not-found">
-				<h1>Topic not found</h1>
-				<p>The topic you're looking for doesn't exist.</p>
-				<Link to="/topics" className="not-found-link">
-					Back to Topics
-				</Link>
-			</div>
+			<NotFound
+				title="Topic not found"
+				message="The topic you're looking for doesn't exist."
+				linkTo="/topics"
+				linkLabel="Back to Topics"
+			/>
 		);
 	}
 
 	return (
 		<div>
-			<Link to="/topics" className="back-link">
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					width="16"
-					height="16"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-				>
-					<line x1="19" y1="12" x2="5" y2="12" />
-					<polyline points="12 19 5 12 12 5" />
-				</svg>
-				Back to Topics
-			</Link>
+			<BackLink to="/topics" label="Back to Topics" />
 
-			<div className="paper">
+			<Paper>
 				<div className="topic-header">
 					<h1>{topic.name}</h1>
-					<span className={`status-badge status-${topic.status}`}>
-						{topicStatusLabels[topic.status]}
-					</span>
+					<StatusBadge status={topic.status} />
 				</div>
 				{topic.description && (
 					<p className="post-excerpt" style={{ marginTop: "0.5rem" }}>
 						{topic.description}
 					</p>
 				)}
-			</div>
+			</Paper>
 
 			{topic.posts.length > 0 && (
-				<div className="paper">
-					<div className="section-header">
-						<h2 className="section-title">Posts ({topic.posts.length})</h2>
-					</div>
-					<ul className="post-list">
-						{topic.posts.map((post) => (
-							<li key={post.slug} className="post-item">
-								<Link to={`/blogs/${post.slug}`} className="post-title">
-									{post.title}
-								</Link>
-								<div className="post-meta">
-									{post.date && <span className="post-date">{post.date}</span>}
-									{post.tags && post.tags.length > 0 && (
-										<div className="tags">
-											{post.tags.map((tag) => (
-												<span key={tag} className="tag">
-													{tag}
-												</span>
-											))}
-										</div>
-									)}
-								</div>
-								{post.excerpt && (
-									<p className="post-excerpt">{post.excerpt}</p>
-								)}
-							</li>
-						))}
-					</ul>
-				</div>
+				<Paper>
+					<SectionHeader title={`Posts (${topic.posts.length})`} />
+					<PostList posts={topic.posts} basePath="/blogs" />
+				</Paper>
 			)}
 
 			{topic.notes.length > 0 && (
-				<div className="paper">
-					<div className="section-header">
-						<h2 className="section-title">Notes ({topic.notes.length})</h2>
-					</div>
-					<div className="timeline timeline-compact">
-						{topic.notes.map((note) => (
-							<div key={note.slug} className="timeline-item">
-								<div className="timeline-dot" />
-								<div className="timeline-content">
-									<Link to={`/notes/${note.slug}`} className="timeline-title">
-										{note.title}
-									</Link>
-									<div className="timeline-meta">
-										{note.date && (
-											<span className="timeline-date">
-												{new Date(note.date).toLocaleDateString("en-US", {
-													month: "short",
-													day: "numeric",
-												})}
-											</span>
-										)}
-										{note.tags && note.tags.length > 0 && (
-											<div className="tags">
-												{note.tags.map((tag) => (
-													<span key={tag} className="tag">
-														{tag}
-													</span>
-												))}
-											</div>
-										)}
-									</div>
-								</div>
-							</div>
-						))}
-					</div>
-				</div>
+				<Paper>
+					<SectionHeader title={`Notes (${topic.notes.length})`} />
+					<Timeline items={topic.notes} basePath="/notes" compact />
+				</Paper>
 			)}
 
 			{topic.posts.length === 0 && topic.notes.length === 0 && (
-				<div className="paper">
-					<p className="empty-state">No content in this topic yet.</p>
-				</div>
+				<Paper>
+					<EmptyState message="No content in this topic yet." />
+				</Paper>
 			)}
 		</div>
 	);

@@ -1,7 +1,8 @@
-import { createFileRoute, Link, useParams } from "@tanstack/react-router";
+import { createFileRoute, useParams } from "@tanstack/react-router";
 import { getPostBySlug } from "../../lib/posts";
 import { TableOfContents } from "../../components/TableOfContents";
 import { MarkdownContent } from "../../components/MarkdownContent";
+import { Paper, BackLink, ArticleHeader, NotFound } from "../../components/ui";
 
 export const Route = createFileRoute("/blogs/$slug")({
 	component: PostPage,
@@ -14,57 +15,31 @@ function PostPage() {
 
 	if (!post) {
 		return (
-			<div className="paper not-found">
-				<h1>Post not found</h1>
-				<p>The post you're looking for doesn't exist.</p>
-				<Link to="/blogs" className="not-found-link">
-					Back to Blog
-				</Link>
-			</div>
+			<NotFound
+				title="Post not found"
+				message="The post you're looking for doesn't exist."
+				linkTo="/blogs"
+				linkLabel="Back to Blog"
+			/>
 		);
 	}
 
 	return (
 		<div>
-			<Link to="/blogs" className="back-link">
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					width="16"
-					height="16"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-				>
-					<line x1="19" y1="12" x2="5" y2="12" />
-					<polyline points="12 19 5 12 12 5" />
-				</svg>
-				Back to Blog
-			</Link>
+			<BackLink to="/blogs" label="Back to Blog" />
 
-			<article className="paper">
-				<header className="article-header">
-					<h1 className="article-title">{post.title}</h1>
-					<div className="article-meta">
-						{post.date && <span>{post.date}</span>}
-						{post.tags && post.tags.length > 0 && (
-							<div className="tags">
-								{post.tags.map((tag) => (
-									<span key={tag} className="tag">
-										{tag}
-									</span>
-								))}
-							</div>
-						)}
-					</div>
-				</header>
+			<Paper>
+				<ArticleHeader
+					title={post.title}
+					date={post.date}
+					topic={post.topic}
+					tags={post.tags}
+				/>
 
 				{post.toc.length > 0 && <TableOfContents items={post.toc} />}
 
 				<MarkdownContent content={post.content} basePath={post.basePath} />
-			</article>
+			</Paper>
 		</div>
 	);
 }
