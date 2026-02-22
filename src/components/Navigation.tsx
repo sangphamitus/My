@@ -9,7 +9,7 @@ type NavItem = {
 
 const navItems: NavItem[] = [
 	{ to: "/", label: "Home", exact: true },
-	{ to: "/blogs", label: "Blog" },
+	{ to: "/blogs", label: "Blogs" },
 	{ to: "/notes", label: "Notes" },
 	{ to: "/topics", label: "Topics" },
 	{ to: "/about", label: "About" },
@@ -24,12 +24,19 @@ type NavigationProps = {
 export function Navigation({
 	isDark,
 	onToggleTheme,
-	brandName = "My Paper",
+	brandName = "Bored Site",
 }: NavigationProps) {
 	return (
 		<nav className="nav">
 			<div className="nav-inner">
 				<Link to="/" className="nav-brand">
+					<span className="nav-brand-icon" aria-hidden>
+						<svg viewBox="0 0 40 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<rect width="32" height="32" rx="8" fill="currentColor" opacity="0.15" />
+							<path d="M6 16h20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+							<circle cx="16" cy="16" r="2.5" fill="currentColor" opacity="0.8" />
+						</svg>
+					</span>
 					{brandName}
 				</Link>
 				<div className="nav-links">

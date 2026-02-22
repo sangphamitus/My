@@ -65,7 +65,7 @@ function BlogsPage() {
 		<div>
 			<Paper>
 				<PageHeader
-					title="Blog"
+					title="Blogs"
 					description="Thoughts, ideas, and longer explorations."
 				/>
 

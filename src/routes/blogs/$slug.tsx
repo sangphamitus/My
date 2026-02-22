@@ -19,14 +19,14 @@ function PostPage() {
 				title="Post not found"
 				message="The post you're looking for doesn't exist."
 				linkTo="/blogs"
-				linkLabel="Back to Blog"
+				linkLabel="Back to Blogs"
 			/>
 		);
 	}
 
 	return (
 		<div>
-			<BackLink to="/blogs" label="Back to Blog" />
+			<BackLink to="/blogs" label="Back to Blogs" />
 
 			<Paper>
 				<ArticleHeader

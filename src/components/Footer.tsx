@@ -1,11 +1,10 @@
-type FooterProps = {
-	text?: string;
-};
+export function Footer() {
+	const year = new Date().getFullYear();
 
-export function Footer({ text = "Built with love and paper" }: FooterProps) {
 	return (
 		<footer className="footer">
-			<p>{text}</p>
+			<p>© {year} Sang Pham-Phuoc</p>
+			<p>Web made with passion and love</p>
 		</footer>
 	);
 }
