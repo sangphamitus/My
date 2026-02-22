@@ -6,10 +6,10 @@ This template provides a minimal setup to get React working in Vite with HMR and
 
 Blogs and notes are organized **by topic** so you can keep track of what belongs where:
 
-- **Blogs:** `src/posts/<topic>/<slug>/index.md` — e.g. `src/posts/writing/the-joy-of-markdown/index.md`
+- **Blogs:** `src/blogs/<topic>/<slug>/index.md` — e.g. `src/blogs/writing/the-joy-of-markdown/index.md`
 - **Notes:** `src/notes/<topic>/<slug>/index.md` — e.g. `src/notes/blog-setup/setting-up-blog/index.md`
 
-The first folder under `posts/` or `notes/` is the **topic** (e.g. `writing`, `blog-setup`, `learning-react`). The topic slug must match a key in `src/lib/topics.ts` if you want a custom name and status. You can still use a flat structure for a single slug: `posts/<slug>/index.md` or `notes/<slug>/index.md`; then set `topic` in the file’s frontmatter.
+The first folder under `blogs/` or `notes/` is the **topic** (e.g. `writing`, `blog-setup`, `learning-react`). The topic slug must match a key in `src/lib/topics.ts` if you want a custom name and status. You can still use a flat structure for a single slug: `blogs/<slug>/index.md` or `notes/<slug>/index.md`; then set `topic` in the file’s frontmatter.
 
 Currently, two official plugins are available:
 

@@ -1,5 +1,5 @@
+import { type Blog, getAllBlogs } from "./blogs";
 import { getAllNotes, type Note } from "./notes";
-import { getAllPosts, type Post } from "./posts";
 
 export type TopicStatus = "todo" | "in-progress" | "pending" | "done" | "stop";
 
@@ -8,7 +8,7 @@ export type Topic = {
 	name: string;
 	status: TopicStatus;
 	description?: string;
-	posts: Post[];
+	blogs: Blog[];
 	notes: Note[];
 	lastUpdated: string;
 };
@@ -45,25 +45,15 @@ type TopicConfig = {
 };
 
 const topicConfigs: Record<string, TopicConfig> = {
-	"blog-setup": {
-		name: "Blog Setup",
-		status: "done",
-		description: "Setting up this personal blog with React and TanStack Router",
-	},
-	"learning-react": {
-		name: "Learning React",
+	"DIY-VPS": {
+		name: "DIY VPS",
 		status: "in-progress",
-		description: "My journey learning React and its ecosystem",
-	},
-	writing: {
-		name: "Writing",
-		status: "in-progress",
-		description: "Thoughts on writing and content creation",
+		description: "DIY VPS projects and tutorials",
 	},
 };
 
 export function getAllTopics(): Topic[] {
-	const posts = getAllPosts();
+	const blogs = getAllBlogs();
 	const notes = getAllNotes();
 
 	const topicMap = new Map<string, Topic>();
@@ -75,15 +65,15 @@ export function getAllTopics(): Topic[] {
 			name: config.name,
 			status: config.status,
 			description: config.description,
-			posts: [],
+			blogs: [],
 			notes: [],
 			lastUpdated: "",
 		});
 	}
 
-	// Add posts to topics
-	for (const post of posts) {
-		const topicSlug = post.topic;
+	// Add blogs to topics
+	for (const blog of blogs) {
+		const topicSlug = blog.topic;
 		if (!topicSlug) continue;
 
 		if (!topicMap.has(topicSlug)) {
@@ -94,12 +84,12 @@ export function getAllTopics(): Topic[] {
 					.map((w) => w.charAt(0).toUpperCase() + w.slice(1))
 					.join(" "),
 				status: "todo",
-				posts: [],
+				blogs: [],
 				notes: [],
 				lastUpdated: "",
 			});
 		}
-		topicMap.get(topicSlug)!.posts.push(post);
+		topicMap.get(topicSlug)!.blogs.push(blog);
 	}
 
 	// Add notes to topics
@@ -115,7 +105,7 @@ export function getAllTopics(): Topic[] {
 					.map((w) => w.charAt(0).toUpperCase() + w.slice(1))
 					.join(" "),
 				status: "todo",
-				posts: [],
+				blogs: [],
 				notes: [],
 				lastUpdated: "",
 			});
@@ -126,10 +116,10 @@ export function getAllTopics(): Topic[] {
 	// Calculate last updated date and filter empty topics
 	const topics: Topic[] = [];
 	for (const topic of topicMap.values()) {
-		if (topic.posts.length === 0 && topic.notes.length === 0) continue;
+		if (topic.blogs.length === 0 && topic.notes.length === 0) continue;
 
 		const dates = [
-			...topic.posts.map((p) => p.date || ""),
+			...topic.blogs.map((p) => p.date || ""),
 			...topic.notes.map((n) => n.date || ""),
 		]
 			.filter(Boolean)

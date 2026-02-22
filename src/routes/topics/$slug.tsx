@@ -4,7 +4,7 @@ import {
 	EmptyState,
 	NotFound,
 	Paper,
-	PostList,
+	EntryList,
 	SectionHeader,
 	StatusBadge,
 	Timeline,
@@ -41,16 +41,16 @@ function TopicPage() {
 					<StatusBadge status={topic.status} />
 				</div>
 				{topic.description && (
-					<p className="post-excerpt" style={{ marginTop: "0.5rem" }}>
+					<p className="entry-excerpt" style={{ marginTop: "0.5rem" }}>
 						{topic.description}
 					</p>
 				)}
 			</Paper>
 
-			{topic.posts.length > 0 && (
+			{topic.blogs.length > 0 && (
 				<Paper>
-					<SectionHeader title={`Posts (${topic.posts.length})`} />
-					<PostList posts={topic.posts} basePath="/blogs" />
+					<SectionHeader title={`Blogs (${topic.blogs.length})`} />
+					<EntryList items={topic.blogs} basePath="/blogs" />
 				</Paper>
 			)}
 
@@ -61,7 +61,7 @@ function TopicPage() {
 				</Paper>
 			)}
 
-			{topic.posts.length === 0 && topic.notes.length === 0 && (
+			{topic.blogs.length === 0 && topic.notes.length === 0 && (
 				<Paper>
 					<EmptyState message="No content in this topic yet." />
 				</Paper>

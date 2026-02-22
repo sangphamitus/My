@@ -2,22 +2,22 @@ import { createFileRoute, useParams } from "@tanstack/react-router";
 import { MarkdownContent } from "../../components/MarkdownContent";
 import { TableOfContents } from "../../components/TableOfContents";
 import { ArticleHeader, BackLink, NotFound, Paper } from "../../components/ui";
-import { getPostBySlug } from "../../lib/posts";
+import { getBlogBySlug } from "../../lib/blogs";
 
 export const Route = createFileRoute("/blogs/$slug")({
-	component: PostPage,
+	component: BlogPage,
 });
 
-function PostPage() {
+function BlogPage() {
 	const params = useParams({ from: "/blogs/$slug" });
 	const slug = params.slug || "";
-	const post = getPostBySlug(slug);
+	const blog = getBlogBySlug(slug);
 
-	if (!post) {
+	if (!blog) {
 		return (
 			<NotFound
-				title="Post not found"
-				message="The post you're looking for doesn't exist."
+				title="Blog not found"
+				message="The blog you're looking for doesn't exist."
 				linkTo="/blogs"
 				linkLabel="Back to Blogs"
 			/>
@@ -30,15 +30,15 @@ function PostPage() {
 
 			<Paper>
 				<ArticleHeader
-					title={post.title}
-					date={post.date}
-					topic={post.topic}
-					tags={post.tags}
+					title={blog.title}
+					date={blog.date}
+					topic={blog.topic}
+					tags={blog.tags}
 				/>
 
-				{post.toc.length > 0 && <TableOfContents items={post.toc} />}
+				{blog.toc.length > 0 && <TableOfContents items={blog.toc} />}
 
-				<MarkdownContent content={post.content} basePath={post.basePath} />
+				<MarkdownContent content={blog.content} basePath={blog.basePath} />
 			</Paper>
 		</div>
 	);

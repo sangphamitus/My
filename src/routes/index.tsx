@@ -1,12 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { getAllPosts } from "../lib/posts";
+import { getAllBlogs } from "../lib/blogs";
 import { getAllNotes } from "../lib/notes";
 import { getAllTopics } from "../lib/topics";
 import {
 	Paper,
 	PageHeader,
 	SectionHeader,
-	PostList,
+	EntryList,
 	Timeline,
 	TopicGrid,
 	EmptyState,
@@ -17,7 +17,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
-	const posts = getAllPosts().slice(0, 3);
+	const blogs = getAllBlogs().slice(0, 3);
 	const notes = getAllNotes().slice(0, 5);
 	const topics = getAllTopics().slice(0, 4);
 
@@ -39,11 +39,11 @@ function Home() {
 			)}
 
 			<Paper>
-				<SectionHeader title="Recent Posts" linkTo="/blogs" />
-				{posts.length === 0 ? (
-					<EmptyState message="No posts yet." />
+				<SectionHeader title="Recent Blogs" linkTo="/blogs" />
+				{blogs.length === 0 ? (
+					<EmptyState message="No blogs yet." />
 				) : (
-					<PostList posts={posts} basePath="/blogs" />
+					<EntryList items={blogs} basePath="/blogs" />
 				)}
 			</Paper>
 

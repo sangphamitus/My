@@ -55,7 +55,7 @@ function About() {
 				<h3>What You'll Find Here</h3>
 				<ul>
 					<li>
-						<strong>Blogs</strong> — Longer posts on topics I care about
+						<strong>Blogs</strong> — Longer articles on topics I care about
 					</li>
 					<li>
 						<strong>Notes</strong> — A timeline of what I’m working on or

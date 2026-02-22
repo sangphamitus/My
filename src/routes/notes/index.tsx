@@ -6,7 +6,7 @@ import {
 	Paper,
 	PageHeader,
 	FilterTags,
-	PostList,
+	EntryList,
 	GroupedTimeline,
 	EmptyState,
 } from "../../components/ui";
@@ -100,7 +100,7 @@ function NotesPage() {
 					filteredNotes.length === 0 ? (
 						<EmptyState message={getEmptyMessage()} />
 					) : (
-						<PostList posts={filteredNotes} basePath="/notes" />
+						<EntryList items={filteredNotes} basePath="/notes" />
 					)
 				) : groupedNotes.length === 0 ? (
 					<EmptyState message="No notes yet." />

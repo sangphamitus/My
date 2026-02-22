@@ -61,10 +61,10 @@ export function extractSlugFromPath(path: string): string {
     return filename.replace(/\.md$/, '')
 }
 
-/** For topic-based dirs: posts/<topic>/<slug>/index.md or notes/<topic>/<slug>.md. Returns topic from path when present. */
+/** For topic-based dirs: blogs/<topic>/<slug>/index.md or notes/<topic>/<slug>.md. Returns topic from path when present. */
 export function extractTopicAndSlugFromPath(
     path: string,
-    contentKind: 'posts' | 'notes'
+    contentKind: 'blogs' | 'notes'
 ): { topic?: string; slug: string } {
     const parts = path.split('/').filter(Boolean)
     const baseIndex = parts.indexOf(contentKind)

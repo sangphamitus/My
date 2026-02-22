@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { TagList } from "./TagList";
 import { TopicLink } from "./TopicLink";
 
-type PostItemProps = {
+type EntryItemProps = {
 	slug: string;
 	title: string;
 	date?: string;
@@ -12,7 +12,7 @@ type PostItemProps = {
 	basePath: string;
 };
 
-export function PostItem({
+export function EntryItem({
 	slug,
 	title,
 	date,
@@ -20,18 +20,18 @@ export function PostItem({
 	tags,
 	excerpt,
 	basePath,
-}: PostItemProps) {
+}: EntryItemProps) {
 	return (
-		<li className="post-item">
-			<Link to={`${basePath}/${slug}`} className="post-title">
+		<li className="entry-item">
+			<Link to={`${basePath}/${slug}`} className="entry-title">
 				{title}
 			</Link>
-			<div className="post-meta">
-				{date && <span className="post-date">{date}</span>}
+			<div className="entry-meta">
+				{date && <span className="entry-date">{date}</span>}
 				{topic && <TopicLink topic={topic} />}
 				{tags && <TagList tags={tags} />}
 			</div>
-			{excerpt && <p className="post-excerpt">{excerpt}</p>}
+			{excerpt && <p className="entry-excerpt">{excerpt}</p>}
 		</li>
 	);
 }

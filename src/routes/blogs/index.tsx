@@ -6,16 +6,16 @@ import {
 	FilterTags,
 	PageHeader,
 	Paper,
-	PostList,
+	EntryList,
 } from "../../components/ui";
-import { getAllPosts, getUniqueTopics } from "../../lib/posts";
+import { getAllBlogs, getUniqueTopics } from "../../lib/blogs";
 
 export const Route = createFileRoute("/blogs/")({
 	component: BlogsPage,
 });
 
 function BlogsPage() {
-	const posts = getAllPosts();
+	const blogs = getAllBlogs();
 	const allTopics = getUniqueTopics();
 	const [activeTag, setActiveTag] = useState<string | null>(null);
 	const [activeTopic, setActiveTopic] = useState<string | null>(null);
@@ -23,42 +23,42 @@ function BlogsPage() {
 
 	const allTags = useMemo(() => {
 		const tagSet = new Set<string>();
-		posts.forEach((post) => {
-			post.tags?.forEach((tag) => tagSet.add(tag));
+		blogs.forEach((blog) => {
+			blog.tags?.forEach((tag) => tagSet.add(tag));
 		});
 		return Array.from(tagSet).sort();
-	}, [posts]);
+	}, [blogs]);
 
-	const filteredPosts = useMemo(() => {
-		let result = posts;
+	const filteredBlogs = useMemo(() => {
+		let result = blogs;
 
 		if (searchQuery.trim()) {
 			const query = searchQuery.toLowerCase();
-			result = result.filter((post) => {
-				const titleMatch = post.title.toLowerCase().includes(query);
-				const contentMatch = post.content.toLowerCase().includes(query);
+			result = result.filter((blog) => {
+				const titleMatch = blog.title.toLowerCase().includes(query);
+				const contentMatch = blog.content.toLowerCase().includes(query);
 				const tagMatch =
-					post.tags?.some((tag) => tag.toLowerCase().includes(query)) || false;
+					blog.tags?.some((tag) => tag.toLowerCase().includes(query)) || false;
 				return titleMatch || contentMatch || tagMatch;
 			});
 		}
 
 		if (activeTag) {
-			result = result.filter((post) => post.tags?.includes(activeTag));
+			result = result.filter((blog) => blog.tags?.includes(activeTag));
 		}
 
 		if (activeTopic) {
-			result = result.filter((post) => post.topic === activeTopic);
+			result = result.filter((blog) => blog.topic === activeTopic);
 		}
 
 		return result;
-	}, [posts, activeTag, activeTopic, searchQuery]);
+	}, [blogs, activeTag, activeTopic, searchQuery]);
 
 	const getEmptyMessage = () => {
-		if (searchQuery) return `No posts matching "${searchQuery}".`;
-		if (activeTopic) return `No posts in topic "${activeTopic}".`;
-		if (activeTag) return `No posts with tag "${activeTag}".`;
-		return "No posts yet.";
+		if (searchQuery) return `No blogs matching "${searchQuery}".`;
+		if (activeTopic) return `No blogs in topic "${activeTopic}".`;
+		if (activeTag) return `No blogs with tag "${activeTag}".`;
+		return "No blogs yet.";
 	};
 
 	return (
@@ -73,7 +73,7 @@ function BlogsPage() {
 					<SearchInput
 						value={searchQuery}
 						onChange={setSearchQuery}
-						placeholder="Search posts..."
+						placeholder="Search blogs..."
 					/>
 				</div>
 
@@ -91,10 +91,10 @@ function BlogsPage() {
 					onSelect={setActiveTag}
 				/>
 
-				{filteredPosts.length === 0 ? (
+				{filteredBlogs.length === 0 ? (
 					<EmptyState message={getEmptyMessage()} />
 				) : (
-					<PostList posts={filteredPosts} basePath="/blogs" />
+					<EntryList items={filteredBlogs} basePath="/blogs" />
 				)}
 			</Paper>
 		</div>

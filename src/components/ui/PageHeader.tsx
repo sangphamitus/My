@@ -18,7 +18,7 @@ export function PageHeader({ title, description, variant = "default" }: PageHead
 		<>
 			<h1>{title}</h1>
 			{description && (
-				<p className="post-excerpt" style={{ marginTop: "-0.5rem" }}>
+				<p className="entry-excerpt" style={{ marginTop: "-0.5rem" }}>
 					{description}
 				</p>
 			)}

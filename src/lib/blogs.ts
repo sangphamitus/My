@@ -1,6 +1,6 @@
 import { parseFrontmatter, generateExcerpt, extractTopicAndSlugFromPath, generateToc, type TocItem } from '../common/markdown'
 
-export type Post = {
+export type Blog = {
     slug: string
     title: string
     date?: string
@@ -12,20 +12,20 @@ export type Post = {
     basePath: string
 }
 
-/** Topic-based: posts/<topic>/<slug>/index.md. Flat: posts/<slug>/index.md or posts/<slug>.md */
+/** Topic-based: blogs/<topic>/<slug>/index.md. Flat: blogs/<slug>/index.md or blogs/<slug>.md */
 const modules = import.meta.glob(
-    ['../posts/*/*/index.md', '../posts/*/*.md', '../posts/*/index.md', '../posts/*.md'],
+    ['../blogs/*/*/index.md', '../blogs/*/*.md', '../blogs/*/index.md', '../blogs/*.md'],
     { as: 'raw', eager: true }
 ) as Record<string, string>
 
 function getImageBasePath(slug: string): string {
-    return `/posts/${slug}`
+    return `/blogs/${slug}`
 }
 
-export function getAllPosts(): Post[] {
-    const posts = Object.entries(modules)
+export function getAllBlogs(): Blog[] {
+    const blogs = Object.entries(modules)
         .map(([path, raw]) => {
-            const { topic: pathTopic, slug } = extractTopicAndSlugFromPath(path, 'posts')
+            const { topic: pathTopic, slug } = extractTopicAndSlugFromPath(path, 'blogs')
             const { data, content } = parseFrontmatter(raw)
             const frontmatterTopic = data.topic as string | undefined
             return {
@@ -38,33 +38,33 @@ export function getAllPosts(): Post[] {
                 excerpt: generateExcerpt(content),
                 toc: generateToc(content),
                 basePath: getImageBasePath(slug),
-            } as Post
+            } as Blog
         })
         .sort((a, b) => (b.date || '').localeCompare(a.date || ''))
 
-    return posts
+    return blogs
 }
 
-export function getPostBySlug(slug: string): Post | undefined {
-    return getAllPosts().find((p) => p.slug === slug)
+export function getBlogBySlug(slug: string): Blog | undefined {
+    return getAllBlogs().find((b) => b.slug === slug)
 }
 
-export function searchPosts(query: string): Post[] {
-    if (!query.trim()) return getAllPosts()
+export function searchBlogs(query: string): Blog[] {
+    if (!query.trim()) return getAllBlogs()
     const lowerQuery = query.toLowerCase()
-    return getAllPosts().filter(post => {
-        const titleMatch = post.title.toLowerCase().includes(lowerQuery)
-        const contentMatch = post.content.toLowerCase().includes(lowerQuery)
-        const tagMatch = post.tags?.some(tag => tag.toLowerCase().includes(lowerQuery)) || false
-        const topicMatch = post.topic?.toLowerCase().includes(lowerQuery) || false
+    return getAllBlogs().filter(blog => {
+        const titleMatch = blog.title.toLowerCase().includes(lowerQuery)
+        const contentMatch = blog.content.toLowerCase().includes(lowerQuery)
+        const tagMatch = blog.tags?.some(tag => tag.toLowerCase().includes(lowerQuery)) || false
+        const topicMatch = blog.topic?.toLowerCase().includes(lowerQuery) || false
         return titleMatch || contentMatch || tagMatch || topicMatch
     })
 }
 
 export function getUniqueTopics(): string[] {
     const topics = new Set<string>()
-    for (const post of getAllPosts()) {
-        if (post.topic) topics.add(post.topic)
+    for (const blog of getAllBlogs()) {
+        if (blog.topic) topics.add(blog.topic)
     }
     return Array.from(topics).sort()
 }

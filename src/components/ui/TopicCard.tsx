@@ -18,7 +18,7 @@ export function TopicCard({ topic, showLastUpdated = true }: TopicCardProps) {
 				<p className="topic-card-desc">{topic.description}</p>
 			)}
 			<div className="topic-card-meta">
-				<span>{topic.posts.length} posts</span>
+				<span>{topic.blogs.length} blogs</span>
 				<span>·</span>
 				<span>{topic.notes.length} notes</span>
 				{showLastUpdated && topic.lastUpdated && (

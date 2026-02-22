@@ -2,16 +2,17 @@
 title: "The Joy of Markdown"
 date: "2026-02-19"
 tags:
-  - markdown
-  - writing
-topic: writing
+  - linux
+  - xiaomi
+  - vps
+topic: DIY-VPS
 ---
 
 Markdown has become my go-to format for writing. Here's why I love it.
 
 ![Blog image example](writing.svg)
 
-*Images for this post live in `public/posts/the-joy-of-markdown/`. Reference them by filename, e.g. `![alt](writing.svg)`.*
+*Images for this blog live in `public/blogs/the-joy-of-markdown/`. Reference them by filename, e.g. `![alt](writing.svg)`.*
 
 ## It's Simple
 
