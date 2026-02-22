@@ -36,9 +36,16 @@ function BlogPage() {
 					tags={blog.tags}
 				/>
 
-				{blog.toc.length > 0 && <TableOfContents items={blog.toc} />}
-
-				<MarkdownContent content={blog.content} basePath={blog.basePath} />
+				<div className="article-layout">
+					<div className="article-body">
+						<MarkdownContent content={blog.content} basePath={blog.basePath} />
+					</div>
+					{blog.toc.length > 0 && (
+						<aside className="article-toc">
+							<TableOfContents items={blog.toc} />
+						</aside>
+					)}
+				</div>
 			</Paper>
 		</div>
 	);

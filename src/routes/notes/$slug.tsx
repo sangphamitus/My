@@ -36,9 +36,16 @@ function NotePage() {
 					tags={note.tags}
 				/>
 
-				{note.toc.length > 0 && <TableOfContents items={note.toc} />}
-
-				<MarkdownContent content={note.content} basePath={note.basePath} />
+				<div className="article-layout">
+					<div className="article-body">
+						<MarkdownContent content={note.content} basePath={note.basePath} />
+					</div>
+					{note.toc.length > 0 && (
+						<aside className="article-toc">
+							<TableOfContents items={note.toc} />
+						</aside>
+					)}
+				</div>
 			</Paper>
 		</div>
 	);

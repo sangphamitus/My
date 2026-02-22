@@ -752,13 +752,59 @@ li {
   background-color: var(--paper-tag-bg);
 }
 
+/* Article layout: content + TOC (floated right on desktop) */
+.article-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.article-body {
+  min-width: 0;
+}
+
+.article-toc {
+  order: 2;
+}
+
+/* Desktop: TOC on the right, sticky */
+@media (min-width: 832px) {
+  .article-layout {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 2.5rem;
+  }
+
+  .article-body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .article-toc {
+    flex-shrink: 0;
+    width: 200px;
+    position: sticky;
+    top: 5.5rem;
+  }
+}
+
 /* Table of Contents */
 .toc {
-  margin-bottom: 2rem;
   padding: 1.25rem;
   background-color: var(--paper-tag-bg);
   border-radius: 8px;
   border: 1px solid var(--paper-border);
+}
+
+/* When TOC is in sidebar, no bottom margin; when above/below content, add spacing */
+.article-toc .toc {
+  margin-bottom: 0;
+}
+
+.article-body + .article-toc .toc,
+.article-toc:first-child .toc {
+  margin-bottom: 0;
 }
 
 .toc-title {
@@ -798,6 +844,13 @@ li {
 .toc-link:hover {
   color: var(--paper-accent);
   text-decoration: none;
+}
+
+/* Mobile: TOC above content for easier navigation */
+@media (max-width: 831px) {
+  .article-toc {
+    order: -1;
+  }
 }
 
 /* Timeline */
