@@ -1,14 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, useMemo } from "react";
-import { getAllPosts, getUniqueTopics } from "../../lib/posts";
+import { useMemo, useState } from "react";
 import { SearchInput } from "../../components/SearchInput";
 import {
-	Paper,
-	PageHeader,
-	FilterTags,
-	PostList,
 	EmptyState,
+	FilterTags,
+	PageHeader,
+	Paper,
+	PostList,
 } from "../../components/ui";
+import { getAllPosts, getUniqueTopics } from "../../lib/posts";
 
 export const Route = createFileRoute("/blogs/")({
 	component: BlogsPage,

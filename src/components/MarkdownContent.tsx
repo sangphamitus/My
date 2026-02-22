@@ -1,5 +1,7 @@
+import type { ReactNode } from "react";
 import type { Components } from "react-markdown";
 import ReactMarkdown from "react-markdown";
+import { ArticleImage } from "./ArticleImage";
 
 type Props = {
 	content: string;
@@ -14,30 +16,30 @@ function generateId(text: string): string {
 }
 
 export function MarkdownContent({ content, basePath }: Props) {
-	const components: Components = {
-		h2: ({ children }) => {
+	const components = {
+		h2: ({ children }: { children?: ReactNode }) => {
 			const text = String(children);
 			const id = generateId(text);
 			return <h2 id={id}>{children}</h2>;
 		},
-		h3: ({ children }) => {
+		h3: ({ children }: { children?: ReactNode }) => {
 			const text = String(children);
 			const id = generateId(text);
 			return <h3 id={id}>{children}</h3>;
 		},
-		h4: ({ children }) => {
+		h4: ({ children }: { children?: ReactNode }) => {
 			const text = String(children);
 			const id = generateId(text);
 			return <h4 id={id}>{children}</h4>;
 		},
-		img: ({ src, alt }) => {
-			let imageSrc = src || "";
-			if (basePath && src && !src.startsWith("http") && !src.startsWith("/")) {
-				imageSrc = `${basePath}/${src}`;
-			}
-			return <img src={imageSrc} alt={alt || ""} loading="lazy" />;
-		},
-	};
+		img: (props: { src?: string; alt?: string }) => (
+			<ArticleImage
+				src={props.src ?? ""}
+				alt={props.alt ?? ""}
+				basePath={basePath}
+			/>
+		),
+	} as unknown as Components;
 
 	return (
 		<div className="article-content">

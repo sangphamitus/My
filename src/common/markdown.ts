@@ -61,6 +61,35 @@ export function extractSlugFromPath(path: string): string {
     return filename.replace(/\.md$/, '')
 }
 
+/** For topic-based dirs: posts/<topic>/<slug>/index.md or notes/<topic>/<slug>.md. Returns topic from path when present. */
+export function extractTopicAndSlugFromPath(
+    path: string,
+    contentKind: 'posts' | 'notes'
+): { topic?: string; slug: string } {
+    const parts = path.split('/').filter(Boolean)
+    const baseIndex = parts.indexOf(contentKind)
+    if (baseIndex === -1) return { slug: extractSlugFromPath(path) }
+
+    const afterBase = parts.slice(baseIndex + 1)
+    if (afterBase.length >= 2) {
+        const last = afterBase[afterBase.length - 1]
+        if (last === 'index.md') {
+            const slugPart = afterBase[afterBase.length - 2]
+            const topicPart = afterBase.length === 2 ? undefined : afterBase[0]
+            return { topic: topicPart, slug: slugPart }
+        }
+        if (last.endsWith('.md')) {
+            return { topic: afterBase[0], slug: last.replace(/\.md$/, '') }
+        }
+    }
+    if (afterBase.length === 1) {
+        const first = afterBase[0]
+        if (first.endsWith('.md')) return { slug: first.replace(/\.md$/, '') }
+        return { slug: first }
+    }
+    return { slug: extractSlugFromPath(path) }
+}
+
 export function generateToc(content: string): TocItem[] {
     const headingRegex = /^(#{2,4})\s+(.+)$/gm
     const toc: TocItem[] = []

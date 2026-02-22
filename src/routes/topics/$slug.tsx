@@ -1,15 +1,15 @@
 import { createFileRoute, useParams } from "@tanstack/react-router";
-import { getTopicBySlug } from "../../lib/topics";
 import {
-	Paper,
 	BackLink,
-	SectionHeader,
-	StatusBadge,
-	PostList,
-	Timeline,
 	EmptyState,
 	NotFound,
+	Paper,
+	PostList,
+	SectionHeader,
+	StatusBadge,
+	Timeline,
 } from "../../components/ui";
+import { getTopicBySlug } from "../../lib/topics";
 
 export const Route = createFileRoute("/topics/$slug")({
 	component: TopicPage,

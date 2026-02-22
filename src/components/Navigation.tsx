@@ -9,9 +9,9 @@ type NavItem = {
 
 const navItems: NavItem[] = [
 	{ to: "/", label: "Home", exact: true },
+	{ to: "/topics", label: "Topics" },
 	{ to: "/blogs", label: "Blogs" },
 	{ to: "/notes", label: "Notes" },
-	{ to: "/topics", label: "Topics" },
 	{ to: "/about", label: "About" },
 ];
 

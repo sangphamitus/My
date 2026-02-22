@@ -1,4 +1,4 @@
-import { parseFrontmatter, generateExcerpt, extractSlugFromPath, generateToc, type TocItem } from '../common/markdown'
+import { parseFrontmatter, generateExcerpt, extractTopicAndSlugFromPath, generateToc, type TocItem } from '../common/markdown'
 
 export type Post = {
     slug: string
@@ -12,30 +12,32 @@ export type Post = {
     basePath: string
 }
 
-const modules = import.meta.glob(['../posts/*/index.md', '../posts/*.md'], { as: 'raw', eager: true }) as Record<string, string>
+/** Topic-based: posts/<topic>/<slug>/index.md. Flat: posts/<slug>/index.md or posts/<slug>.md */
+const modules = import.meta.glob(
+    ['../posts/*/*/index.md', '../posts/*/*.md', '../posts/*/index.md', '../posts/*.md'],
+    { as: 'raw', eager: true }
+) as Record<string, string>
 
-function getBasePath(path: string): string {
-    if (path.includes('/index.md')) {
-        return path.replace('/index.md', '')
-    }
-    return path.replace(/\/[^/]+\.md$/, '')
+function getImageBasePath(slug: string): string {
+    return `/posts/${slug}`
 }
 
 export function getAllPosts(): Post[] {
     const posts = Object.entries(modules)
         .map(([path, raw]) => {
-            const slug = extractSlugFromPath(path)
+            const { topic: pathTopic, slug } = extractTopicAndSlugFromPath(path, 'posts')
             const { data, content } = parseFrontmatter(raw)
+            const frontmatterTopic = data.topic as string | undefined
             return {
                 slug,
                 title: (data.title as string) || slug,
                 date: data.date as string | undefined,
                 tags: (data.tags as string[]) || [],
-                topic: data.topic as string | undefined,
+                topic: pathTopic ?? frontmatterTopic,
                 content,
                 excerpt: generateExcerpt(content),
                 toc: generateToc(content),
-                basePath: getBasePath(path),
+                basePath: getImageBasePath(slug),
             } as Post
         })
         .sort((a, b) => (b.date || '').localeCompare(a.date || ''))
