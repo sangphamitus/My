@@ -9,6 +9,10 @@ topic: writing
 
 Markdown has become my go-to format for writing. Here's why I love it.
 
+![Blog image example](writing.svg)
+
+*Images for this post live in `public/posts/the-joy-of-markdown/`. Reference them by filename, e.g. `![alt](writing.svg)`.*
+
 ## It's Simple
 
 No complex formatting tools, no WYSIWYG surprises. Just type and use a few simple symbols:

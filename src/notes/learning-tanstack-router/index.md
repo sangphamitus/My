@@ -10,6 +10,10 @@ topic: learning-react
 
 Spent some time learning TanStack Router today. Some observations:
 
+![Note image example](router.svg)
+
+*Images for this note live in `public/notes/learning-tanstack-router/`. Use relative paths in markdown: `![alt](router.svg)`.*
+
 ## File-Based Routing
 
 The file-based routing is intuitive. Just create files in the `routes` folder:
