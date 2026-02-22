@@ -414,6 +414,13 @@ li {
   margin-bottom: 1.25rem;
 }
 
+/* Scroll margin so TOC links don’t hide headings under the sticky nav */
+.article-content h2,
+.article-content h3,
+.article-content h4 {
+  scroll-margin-top: 5.5rem;
+}
+
 .article-content h2 {
   margin-top: 2.5rem;
 }

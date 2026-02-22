@@ -1,8 +1,8 @@
 import { createFileRoute, useParams } from "@tanstack/react-router";
-import { getPostBySlug } from "../../lib/posts";
-import { TableOfContents } from "../../components/TableOfContents";
 import { MarkdownContent } from "../../components/MarkdownContent";
-import { Paper, BackLink, ArticleHeader, NotFound } from "../../components/ui";
+import { TableOfContents } from "../../components/TableOfContents";
+import { ArticleHeader, BackLink, NotFound, Paper } from "../../components/ui";
+import { getPostBySlug } from "../../lib/posts";
 
 export const Route = createFileRoute("/blogs/$slug")({
 	component: PostPage,
