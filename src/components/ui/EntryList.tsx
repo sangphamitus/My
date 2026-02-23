@@ -11,7 +11,7 @@ export type EntryData = {
 
 type EntryListProps = {
 	items: EntryData[];
-	basePath: string;
+	basePath: "/blogs" | "/notes";
 };
 
 export function EntryList({ items, basePath }: EntryListProps) {

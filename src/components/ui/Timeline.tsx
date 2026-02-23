@@ -14,7 +14,7 @@ type TimelineItemData = {
 
 type TimelineItemProps = {
 	item: TimelineItemData;
-	basePath: string;
+	basePath: "/blogs" | "/notes";
 	showExcerpt?: boolean;
 };
 
@@ -23,7 +23,11 @@ export function TimelineItem({ item, basePath, showExcerpt = true }: TimelineIte
 		<div className="timeline-item">
 			<div className="timeline-dot" />
 			<div className="timeline-content">
-				<Link to={`${basePath}/${item.slug}`} className="timeline-title">
+				<Link
+					to={basePath === "/blogs" ? "/blogs/$slug" : "/notes/$slug"}
+					params={{ slug: item.slug }}
+					className="timeline-title"
+				>
 					{item.title}
 				</Link>
 				<div className="timeline-meta">
@@ -48,7 +52,7 @@ export function TimelineItem({ item, basePath, showExcerpt = true }: TimelineIte
 
 type TimelineProps = {
 	items: TimelineItemData[];
-	basePath: string;
+	basePath: "/blogs" | "/notes";
 	compact?: boolean;
 };
 
@@ -69,7 +73,7 @@ export function Timeline({ items, basePath, compact = false }: TimelineProps) {
 
 type GroupedTimelineProps = {
 	groups: GroupedNotes[];
-	basePath: string;
+	basePath: "/blogs" | "/notes";
 };
 
 export function GroupedTimeline({ groups, basePath }: GroupedTimelineProps) {

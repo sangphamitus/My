@@ -9,7 +9,7 @@ type TopicCardProps = {
 
 export function TopicCard({ topic, showLastUpdated = true }: TopicCardProps) {
 	return (
-		<Link to={`/topics/${topic.slug}`} className="topic-card">
+		<Link to="/topics/$slug" params={{ slug: topic.slug }} className="topic-card">
 			<div className="topic-card-header">
 				<h3 className="topic-card-title">{topic.name}</h3>
 				<StatusBadge status={topic.status} />

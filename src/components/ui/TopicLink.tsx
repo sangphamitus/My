@@ -6,7 +6,7 @@ type TopicLinkProps = {
 
 export function TopicLink({ topic }: TopicLinkProps) {
 	return (
-		<Link to={`/topics/${topic}`} className="topic-link">
+		<Link to="/topics/$slug" params={{ slug: topic }} className="topic-link">
 			{topic}
 		</Link>
 	);

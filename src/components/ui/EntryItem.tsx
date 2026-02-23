@@ -9,7 +9,7 @@ type EntryItemProps = {
 	topic?: string;
 	tags?: string[];
 	excerpt?: string;
-	basePath: string;
+	basePath: "/blogs" | "/notes";
 };
 
 export function EntryItem({
@@ -23,7 +23,11 @@ export function EntryItem({
 }: EntryItemProps) {
 	return (
 		<li className="entry-item">
-			<Link to={`${basePath}/${slug}`} className="entry-title">
+			<Link
+				to={basePath === "/blogs" ? "/blogs/$slug" : "/notes/$slug"}
+				params={{ slug }}
+				className="entry-title"
+			>
 				{title}
 			</Link>
 			<div className="entry-meta">
