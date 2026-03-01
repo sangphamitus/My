@@ -52,6 +52,19 @@ export function generateExcerpt(content: string, maxLength: number = 150): strin
     return plainText.substring(0, maxLength).trim() + '...'
 }
 
+/** Count words in plain text (strips markdown, splits on whitespace). */
+export function countWords(text: string): number {
+    const plain = text.replace(/[#*`[\]!()]/g, '').replace(/\n+/g, ' ').trim()
+    if (!plain) return 0
+    return plain.split(/\s+/).filter(Boolean).length
+}
+
+/** Estimate read time in minutes. Default ~200 words per minute. */
+export function estimateReadTimeMinutes(text: string, wordsPerMinute: number = 200): number {
+    const words = countWords(text)
+    return Math.max(1, Math.ceil(words / wordsPerMinute))
+}
+
 export function extractSlugFromPath(path: string): string {
     const parts = path.split('/')
     const filename = parts.pop()!

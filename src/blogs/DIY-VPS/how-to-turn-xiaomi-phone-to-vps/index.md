@@ -1,5 +1,5 @@
 ---
-title: "The Joy of Markdown"
+title: "How to Turn a Xiaomi Phone into a VPS with postmarketOS"
 date: "2026-02-19"
 tags:
   - linux
@@ -8,40 +8,35 @@ tags:
 topic: DIY-VPS
 ---
 
-Markdown has become my go-to format for writing. Here's why I love it.
+Short guide: run mainline Linux (postmarketOS) on an old Xiaomi, then use it as a low-power server.
 
-![Blog image example](writing.svg)
+## Prerequisites
 
-*Images for this blog live in `public/blogs/the-joy-of-markdown/`. Reference them by filename, e.g. `![alt](writing.svg)`.*
+- Xiaomi phone [supported by postmarketOS](https://wiki.postmarketos.org/wiki/Devices) (e.g. Mi 9T/K20, Poco F1, Redmi 2)
+- Bootloader unlocked (Xiaomi often requires Mi account + wait period)
+- PC with `fastboot` (and for some devices: `lk2nd`)
 
-## It's Simple
+## Steps
 
-No complex formatting tools, no WYSIWYG surprises. Just type and use a few simple symbols:
+1. **Check your device** — Open the [device list](https://wiki.postmarketos.org/wiki/Devices), find your codename (e.g. `davinci`, `beryllium`).
 
-- `#` for headers
-- `*` or `_` for emphasis
-- `-` for lists
-- Backticks for code
+2. **Install lk2nd (if required)** — Many Xiaomi devices need the [lk2nd](https://wiki.postmarketos.org/wiki/Lk2nd) bootloader for mainline kernel. Follow the wiki for your device.
 
-## It's Portable
+3. **Flash postmarketOS** — Download the image for your device from postmarketOS, then:
+   ```bash
+   fastboot flash boot boot-<variant>.img
+   fastboot flash system <device>-<variant>.img
+   ```
 
-Markdown files are just plain text. They open anywhere, version control perfectly, and will be readable decades from now.
+4. **Boot and enable SSH** — First boot may take a few minutes. Enable SSH (e.g. in Phosh: Settings → SSH) or from console:
+   ```bash
+   sudo setup-sshd
+   ```
 
-## It Looks Good
+5. **Use as VPS** — Connect over Wi‑Fi: `ssh user@<phone-ip>`. Install what you need (nginx, Docker, etc.) with `apk` (Alpine package manager).
 
-Even without rendering, Markdown is readable. The symbols are minimal enough that the content shines through.
+## Notes
 
-## Code Looks Great
-
-```javascript
-function greet(name) {
-  return `Hello, ${name}!`;
-}
-```
-
-Simple, clean, and exactly what I need for a blog like this.
-
-> "The art of writing is the art of discovering what you believe."
-> — Gustave Flaubert
-
-That's what I'm after here. Simple tools that get out of the way and let me focus on the writing.
+- postmarketOS is **not production-grade**; fine for homelab/hobby.
+- Power use is low (often &lt;10 W); built-in battery helps during outages.
+- If your model isn’t listed, porting is possible but advanced.

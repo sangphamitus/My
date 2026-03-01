@@ -13,4 +13,5 @@ export type { EntryData } from "./EntryList";
 export { Timeline, TimelineItem, GroupedTimeline } from "./Timeline";
 export { TopicCard, TopicGrid } from "./TopicCard";
 export { ArticleHeader } from "./ArticleHeader";
+export { ReadingStats } from "./ReadingStats";
 export { NotFound } from "./NotFound";

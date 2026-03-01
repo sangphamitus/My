@@ -2,9 +2,11 @@ import type { TocItem } from "../common/markdown";
 
 type Props = {
 	items: TocItem[];
+	/** ID of the section currently in view (for highlight) */
+	activeId?: string | null;
 };
 
-export function TableOfContents({ items }: Props) {
+export function TableOfContents({ items, activeId }: Props) {
 	if (items.length === 0) return null;
 
 	return (
@@ -17,7 +19,10 @@ export function TableOfContents({ items }: Props) {
 						className="toc-item"
 						style={{ paddingLeft: `${(item.level - 2) * 0.75}rem` }}
 					>
-						<a href={`#${item.id}`} className="toc-link">
+						<a
+							href={`#${item.id}`}
+							className={`toc-link ${activeId === item.id ? "toc-link-active" : ""}`}
+						>
 							{item.text}
 						</a>
 					</li>

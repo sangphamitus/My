@@ -1,6 +1,10 @@
 @import "tailwindcss";
 
+/* Long-read article font: Literata is designed for extended reading and is soft on the eyes */
+@import url("https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,400;0,500;0,600;1,400&display=swap");
+
 :root {
+  --article-font: "Literata", "Georgia", "Times New Roman", serif;
   --paper-bg: #f4f1ea;
   --paper-surface: #fffef9;
   --paper-border: #e0d9c8;
@@ -180,7 +184,7 @@ body {
 /* Main content */
 .main-content {
   flex: 1;
-  max-width: 720px;
+  max-width: 960px;
   margin: 0 auto;
   padding: 2rem 1.5rem 4rem;
   width: 100%;
@@ -377,6 +381,10 @@ li {
   gap: 0.25rem;
 }
 
+.entry-meta .reading-stats--compact {
+  margin-right: 0;
+}
+
 .entry-excerpt {
   font-size: 0.95rem;
   color: var(--paper-text-muted);
@@ -423,9 +431,63 @@ li {
   flex-wrap: wrap;
 }
 
+/* Reading stats (word count + read time) – article header */
+.reading-stats {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--paper-text-muted);
+}
+
+.reading-stats--default {
+  gap: 0.625rem;
+}
+
+.reading-stats--default .reading-stats-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.reading-stats-icon {
+  flex-shrink: 0;
+  opacity: 0.85;
+}
+
+.reading-stats-sep {
+  width: 1px;
+  height: 1em;
+  background-color: var(--paper-divider);
+  border-radius: 1px;
+}
+
+.reading-stats--compact {
+  font-size: 0.8rem;
+}
+
+.reading-stats--compact .reading-stats-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.reading-stats--compact .reading-stats-icon {
+  opacity: 0.75;
+}
+
+.reading-stats--compactFull .reading-stats-sep {
+  height: 0.85em;
+}
+
 .article-content {
+  font-family: var(--article-font);
   font-size: 1.05rem;
-  line-height: 1.8;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
 }
 
 .article-content p {
@@ -437,6 +499,7 @@ li {
 .article-content h3,
 .article-content h4 {
   scroll-margin-top: 5.5rem;
+  text-align: left;
 }
 
 .article-content h2 {
@@ -450,6 +513,7 @@ li {
 .article-content ul,
 .article-content ol {
   margin-bottom: 1.25rem;
+  text-align: left;
 }
 
 .article-content li {
@@ -463,6 +527,7 @@ li {
   background-color: var(--paper-tag-bg);
   border-radius: 0 6px 6px 0;
   font-style: italic;
+  text-align: left;
 }
 
 .article-content blockquote p {
@@ -569,6 +634,57 @@ li {
   border: none;
   border-top: 1px solid var(--paper-divider);
   margin: 2rem 0;
+}
+
+/* Article references (sources / further reading) */
+.article-references {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--paper-divider);
+}
+
+.article-references-title {
+  font-family: var(--article-font);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--paper-text);
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.article-references-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.article-references-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.article-references-link {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.95rem;
+  color: var(--paper-accent);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.article-references-link:hover {
+  color: var(--paper-accent-hover);
+  text-decoration: underline;
+}
+
+.article-references-url {
+  font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
+  font-size: 0.8rem;
+  color: var(--paper-text-muted);
+  word-break: break-all;
 }
 
 /* Back link */
@@ -762,6 +878,7 @@ li {
 
 .article-body {
   min-width: 0;
+  max-width: 72ch; /* comfortable line length for long reading (~65–75 chars) */
 }
 
 .article-toc {
@@ -779,6 +896,7 @@ li {
   .article-body {
     flex: 1;
     min-width: 0;
+    max-width: 72ch;
   }
 
   .article-toc {
@@ -844,6 +962,55 @@ li {
 .toc-link:hover {
   color: var(--paper-accent);
   text-decoration: none;
+}
+
+.toc-link-active {
+  color: var(--paper-accent);
+  font-weight: 500;
+}
+
+/* Reading progress bar (long articles) – fixed at very top above nav so it’s visible */
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: var(--paper-divider);
+  z-index: 101;
+  overflow: hidden;
+}
+
+.reading-progress-bar {
+  height: 100%;
+  background-color: var(--paper-accent);
+  transition: width 0.12s ease-out;
+}
+
+/* Back to top button */
+.back-to-top {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 90;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--paper-border);
+  background-color: var(--paper-surface);
+  color: var(--paper-text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 12px var(--paper-shadow);
+  transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+}
+
+.back-to-top:hover {
+  color: var(--paper-accent);
+  background-color: var(--paper-tag-bg);
+  transform: translateY(-2px);
 }
 
 /* Mobile: TOC above content for easier navigation */
