@@ -7,6 +7,8 @@ export type EntryData = {
 	topic?: string;
 	tags?: string[];
 	excerpt?: string;
+	readTimeMinutes?: number;
+	wordCount?: number;
 };
 
 type EntryListProps = {
@@ -26,6 +28,8 @@ export function EntryList({ items, basePath }: EntryListProps) {
 					topic={item.topic}
 					tags={item.tags}
 					excerpt={item.excerpt}
+					readTimeMinutes={item.readTimeMinutes}
+					wordCount={item.wordCount}
 					basePath={basePath}
 				/>
 			))}

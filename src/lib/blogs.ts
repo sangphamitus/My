@@ -1,4 +1,9 @@
-import { parseFrontmatter, generateExcerpt, extractTopicAndSlugFromPath, generateToc, type TocItem } from '../common/markdown'
+import { parseFrontmatter, generateExcerpt, extractTopicAndSlugFromPath, generateToc, countWords, estimateReadTimeMinutes, type TocItem } from '../common/markdown'
+
+export type Reference = {
+    title: string
+    url: string
+}
 
 export type Blog = {
     slug: string
@@ -10,6 +15,9 @@ export type Blog = {
     excerpt?: string
     toc: TocItem[]
     basePath: string
+    wordCount: number
+    readTimeMinutes: number
+    references?: Reference[]
 }
 
 /** Topic-based: blogs/<topic>/<slug>/index.md. Flat: blogs/<slug>/index.md or blogs/<slug>.md */
@@ -20,6 +28,29 @@ const modules = import.meta.glob(
 
 function getImageBasePath(slug: string): string {
     return `/blogs/${slug}`
+}
+
+function parseReferences(raw: unknown): Reference[] {
+    if (!Array.isArray(raw)) return []
+    const out: Reference[] = []
+    for (const item of raw) {
+        const s = typeof item === 'string' ? item.replace(/^["']|["']$/g, '').trim() : ''
+        if (!s) continue
+        const pipe = s.indexOf('|')
+        if (pipe >= 0) {
+            const title = s.slice(0, pipe).trim()
+            const url = s.slice(pipe + 1).trim()
+            if (url) out.push({ title: title || url, url })
+        } else if (s.startsWith('http://') || s.startsWith('https://')) {
+            try {
+                const name = new URL(s).hostname.replace(/^www\./, '')
+                out.push({ title: name, url: s })
+            } catch {
+                out.push({ title: 'Link', url: s })
+            }
+        }
+    }
+    return out
 }
 
 export function getAllBlogs(): Blog[] {
@@ -38,6 +69,9 @@ export function getAllBlogs(): Blog[] {
                 excerpt: generateExcerpt(content),
                 toc: generateToc(content),
                 basePath: getImageBasePath(slug),
+                wordCount: countWords(content),
+                readTimeMinutes: estimateReadTimeMinutes(content),
+                references: parseReferences(data.references),
             } as Blog
         })
         .sort((a, b) => (b.date || '').localeCompare(a.date || ''))

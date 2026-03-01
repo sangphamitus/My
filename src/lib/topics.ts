@@ -50,11 +50,11 @@ const topicConfigs: Record<string, TopicConfig> = {
 		status: "in-progress",
 		description: "DIY VPS projects and tutorials",
 	},
-	BE: {
-		name: "BE",
+	DBMS: {
+		name: "DBMS",
 		status: "in-progress",
 		description:
-			"As I want to know more about the backend, I will be learning about the backend.",
+			"As I want to know more about the database, I will be learning about the database.",
 	},
 };
 
