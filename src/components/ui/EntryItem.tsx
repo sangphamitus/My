@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { TagList } from "./TagList";
 import { TopicLink } from "./TopicLink";
+import { ReadingStats } from "./ReadingStats";
 
 type EntryItemProps = {
 	slug: string;
@@ -9,6 +10,8 @@ type EntryItemProps = {
 	topic?: string;
 	tags?: string[];
 	excerpt?: string;
+	readTimeMinutes?: number;
+	wordCount?: number;
 	basePath: "/blogs" | "/notes";
 };
 
@@ -19,6 +22,8 @@ export function EntryItem({
 	topic,
 	tags,
 	excerpt,
+	readTimeMinutes,
+	wordCount,
 	basePath,
 }: EntryItemProps) {
 	return (
@@ -32,6 +37,11 @@ export function EntryItem({
 			</Link>
 			<div className="entry-meta">
 				{date && <span className="entry-date">{date}</span>}
+				<ReadingStats
+					readTimeMinutes={readTimeMinutes}
+					wordCount={wordCount}
+					variant="compactFull"
+				/>
 				{topic && <TopicLink topic={topic} />}
 				{tags && <TagList tags={tags} />}
 			</div>

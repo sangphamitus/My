@@ -50,6 +50,12 @@ const topicConfigs: Record<string, TopicConfig> = {
 		status: "in-progress",
 		description: "DIY VPS projects and tutorials",
 	},
+	DBMS: {
+		name: "DBMS",
+		status: "in-progress",
+		description:
+			"As I want to know more about the database, I will be learning about the database.",
+	},
 };
 
 export function getAllTopics(): Topic[] {
