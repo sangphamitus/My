@@ -1,10 +1,10 @@
 ---
-title: "Object oriented databases"
+title: "Object oriented databases (OODBs)"
 date: "2026-03-04"
 tags:
   - databases
   - object-oriented-databases
-  - OODBMS
+  - OODBs
 topic: DBMS
 references:
   - "Object Database | https://en.wikipedia.org/wiki/Object_database"
