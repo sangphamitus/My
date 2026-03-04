@@ -68,6 +68,32 @@
   box-sizing: border-box;
 }
 
+/* Custom scrollbar — matches the warm paper theme */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--paper-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--paper-border);
+  border-radius: 4px;
+  border: 2px solid var(--paper-bg);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--paper-accent);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--paper-border) var(--paper-bg);
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -928,6 +954,8 @@ li {
     width: 200px;
     position: sticky;
     top: 5.5rem;
+    max-height: calc(100vh - 5.5rem - 2rem);
+    overflow-y: auto;
   }
 }
 

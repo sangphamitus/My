@@ -56,6 +56,12 @@ const topicConfigs: Record<string, TopicConfig> = {
 		description:
 			"As I want to know more about the database, I will be learning about the database.",
 	},
+	OODBs: {
+		name: "OODBs",
+		status: "in-progress",
+		description:
+			"Object-oriented databases (OODBs) are a type of database that store data in the form of objects, as opposed to traditional relational databases that store data in tables. OODBs are designed to work with object-oriented programming languages and provide a more natural way to represent complex data structures.",
+	},
 };
 
 export function getAllTopics(): Topic[] {

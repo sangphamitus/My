@@ -5,10 +5,9 @@ tags:
   - databases
   - object-oriented-databases
   - OODBs
-topic: DBMS
+topic: OODBs
 references:
   - "Object Database | https://en.wikipedia.org/wiki/Object_database"
-  - "Object Query Language | https://en.wikipedia.org/wiki/Object_Query_Language"
 ---
 
 ## What is an Object-Oriented Database?
@@ -133,31 +132,6 @@ Instead of a table schema (column names + types), the OODBMS schema *is* the cla
 
 ---
 
-## How Queries Work (OQL)
-
-OODBMS systems use **OQL (Object Query Language)**, which looks like SQL but works on objects and navigates their properties directly — no JOINs needed.
-
-```sql
--- SQL: requires a JOIN to get the city
-SELECT p.name, a.city
-FROM person p
-JOIN address a ON p.addr_id = a.id
-WHERE a.country = 'VN'
-
--- OQL: navigate properties directly — no JOIN
-SELECT p.name, p.address.city
-FROM Person p
-WHERE p.address.country = 'VN'
-```
-
-OQL can also call methods on objects:
-
-```sql
-SELECT p FROM Person p WHERE p.getAge() > 18
-```
-
----
-
 ## OODBMS vs Relational Database
 
 | Feature | RDBMS | OODBMS |
@@ -202,3 +176,13 @@ The core problem OODBMS solves is the **impedance mismatch** — the friction of
 | **InterSystems Caché** | Widely used in healthcare |
 
 Today, pure OODBMS systems are less common in mainstream use. Many applications instead use **object-relational mappers (ORMs)** like SQLAlchemy or Hibernate to bridge OOP code with a relational database. However, OODBMS concepts directly influenced modern document databases like MongoDB, which store JSON-like documents (structured objects) rather than flat rows.
+
+---
+
+## Dive Deeper
+
+This article covers the fundamentals. The rest of the series goes further:
+
+- [OODBs 1: Advanced Techniques](/blogs/oodb-advanced-techniques) — polymorphic queries, lazy loading, long transactions, schema evolution, pointer swizzling, and object clustering
+- [OODBs 2: Querying with OQL](/blogs/oodb-querying) — path navigation, method calls, collection queries, and how OQL differs from SQL
+- [OODBs 3: Indexing and Caching](/blogs/oodb-indexing-caching) — attribute, path, collection and extent indexes; object buffer pool, client-side cache, dirty tracking, and prefetching
