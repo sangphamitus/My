@@ -3,6 +3,7 @@ import {
 	generateExcerpt,
 	generateToc,
 	parseFrontmatter,
+	slugToTitle,
 	type TocItem,
 } from "../common/markdown";
 
@@ -44,7 +45,7 @@ export function getAllNotes(): Note[] {
 			const frontmatterTopic = data.topic as string | undefined;
 			return {
 				slug,
-				title: (data.title as string) || slug,
+				title: (data.title as string) || slugToTitle(slug),
 				date: (data.date as string) || "",
 				tags: (data.tags as string[]) || [],
 				topic: pathTopic ?? frontmatterTopic,

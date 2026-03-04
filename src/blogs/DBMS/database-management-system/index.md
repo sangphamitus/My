@@ -1,5 +1,5 @@
 ---
-title: "Database Management System"
+title: "Database management system"
 date: "2026-02-28"
 tags:
   - databases
