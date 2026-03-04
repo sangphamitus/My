@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import type { Components } from "react-markdown";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { ArticleImage } from "./ArticleImage";
 
 type Props = {
@@ -43,7 +44,7 @@ export function MarkdownContent({ content, basePath }: Props) {
 
 	return (
 		<div className="article-content">
-			<ReactMarkdown components={components}>{content}</ReactMarkdown>
+			<ReactMarkdown remarkPlugins={[remarkGfm]} components={components}>{content}</ReactMarkdown>
 		</div>
 	);
 }

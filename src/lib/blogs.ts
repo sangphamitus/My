@@ -1,4 +1,4 @@
-import { parseFrontmatter, generateExcerpt, extractTopicAndSlugFromPath, generateToc, countWords, estimateReadTimeMinutes, type TocItem } from '../common/markdown'
+import { countWords, estimateReadTimeMinutes, extractTopicAndSlugFromPath, generateExcerpt, generateToc, parseFrontmatter, slugToTitle, type TocItem } from '../common/markdown'
 
 export type Reference = {
     title: string
@@ -61,7 +61,7 @@ export function getAllBlogs(): Blog[] {
             const frontmatterTopic = data.topic as string | undefined
             return {
                 slug,
-                title: (data.title as string) || slug,
+                title: (data.title as string) || slugToTitle(slug),
                 date: data.date as string | undefined,
                 tags: (data.tags as string[]) || [],
                 topic: pathTopic ?? frontmatterTopic,

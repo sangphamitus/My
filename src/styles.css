@@ -636,6 +636,30 @@ li {
   margin: 2rem 0;
 }
 
+.article-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.95em;
+}
+
+.article-content th,
+.article-content td {
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--paper-border);
+  text-align: left;
+}
+
+.article-content th {
+  background-color: var(--paper-tag-bg);
+  font-weight: 600;
+  color: var(--paper-text);
+}
+
+.article-content tr:nth-child(even) td {
+  background-color: var(--paper-tag-bg);
+}
+
 /* Article references (sources / further reading) */
 .article-references {
   margin-top: 3rem;
