@@ -25,7 +25,7 @@ function Home() {
 		<div>
 			<Paper variant="intro">
 				<PageHeader
-					title="The Boring Site"
+					title="The Crafts Site"
 					description="A quiet corner for thoughts, notes, and the occasional blog. Nothing fancy."
 					variant="centered"
 				/>

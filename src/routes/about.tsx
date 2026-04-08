@@ -44,7 +44,7 @@ function About() {
 					.
 				</p>
 
-				<h2>About This Site (The Boring Site)</h2>
+				<h2>About This Site (The Crafts Site)</h2>
 				<p>
 					This is my personal corner on the web—a place for thoughts, notes, and
 					the occasional blog when there’s nothing else to do. No fancy stuff,
