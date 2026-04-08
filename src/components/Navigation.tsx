@@ -24,19 +24,21 @@ type NavigationProps = {
 export function Navigation({
 	isDark,
 	onToggleTheme,
-	brandName = "The Boring Site",
+	brandName = "Crafts",
 }: NavigationProps) {
 	return (
 		<nav className="nav">
 			<div className="nav-inner">
 				<Link to="/" className="nav-brand">
 					<span className="nav-brand-icon" aria-hidden>
-						<svg viewBox="0 0 40 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<rect width="32" height="32" rx="8" fill="currentColor" opacity="0.12" />
-							<path d="M6 16h20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-							<circle cx="10" cy="16" r="1.5" fill="currentColor" opacity="0.7" />
-							<circle cx="16" cy="16" r="1.5" fill="currentColor" opacity="0.7" />
-							<circle cx="22" cy="16" r="1.5" fill="currentColor" opacity="0.7" />
+						{/* Yarn ball craft icon */}
+						<svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<circle cx="16" cy="16" r="13" stroke="currentColor" strokeWidth="1.5" opacity="0.9" />
+							<ellipse cx="16" cy="16" rx="13" ry="5" stroke="currentColor" strokeWidth="1.25" opacity="0.6" />
+							<ellipse cx="16" cy="16" rx="13" ry="5" stroke="currentColor" strokeWidth="1.25" opacity="0.6" transform="rotate(60 16 16)" />
+							<ellipse cx="16" cy="16" rx="13" ry="5" stroke="currentColor" strokeWidth="1.25" opacity="0.6" transform="rotate(120 16 16)" />
+							<circle cx="16" cy="16" r="2.5" fill="currentColor" opacity="0.75" />
+							<path d="M27 7 Q30 4 29 1" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" opacity="0.6" />
 						</svg>
 					</span>
 					{brandName}
