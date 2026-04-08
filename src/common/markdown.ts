@@ -11,12 +11,18 @@ export type TocItem = {
     level: number
 }
 
+export function slugToTitle(slug: string): string {
+    const spaced = slug.replace(/-/g, ' ')
+    return spaced.charAt(0).toUpperCase() + spaced.slice(1)
+}
+
 export function parseFrontmatter(raw: string): ParsedMarkdown {
+    const normalized = raw.replace(/\r\n/g, '\n')
     const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/
-    const match = raw.match(frontmatterRegex)
+    const match = normalized.match(frontmatterRegex)
 
     if (!match) {
-        return { data: {}, content: raw }
+        return { data: {}, content: normalized }
     }
 
     const [, frontmatter, content] = match

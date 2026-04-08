@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320" width="600" height="320">
+  <defs>
+    <clipPath id="a-clip"><rect x="200" y="25" width="200" height="100" rx="6"/></clipPath>
+    <clipPath id="d-clip"><rect x="30" y="183" width="200" height="120" rx="6"/></clipPath>
+    <clipPath id="c-clip"><rect x="370" y="183" width="200" height="120" rx="6"/></clipPath>
+  </defs>
+
+  <!-- Background -->
+  <rect width="600" height="320" fill="#f8fafc" rx="8" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Title -->
+  <text x="300" y="18" text-anchor="middle" font-family="'Courier New',monospace" font-size="13" font-weight="bold" fill="#1e293b">Class Inheritance</text>
+
+  <!-- === ANIMAL (parent class) === -->
+  <rect x="200" y="25" width="200" height="100" rx="6" fill="white"/>
+  <rect x="200" y="25" width="200" height="30" fill="#7c3aed" clip-path="url(#a-clip)"/>
+  <rect x="200" y="25" width="200" height="100" rx="6" fill="none" stroke="#7c3aed" stroke-width="2"/>
+  <text x="300" y="44" text-anchor="middle" font-family="'Courier New',monospace" font-size="13" font-weight="bold" fill="white">Animal</text>
+  <line x1="200" y1="55" x2="400" y2="55" stroke="#e9d5ff" stroke-width="1"/>
+  <text x="212" y="70" font-family="'Courier New',monospace" font-size="11" fill="#374151">name: str</text>
+  <text x="212" y="84" font-family="'Courier New',monospace" font-size="11" fill="#374151">age: int</text>
+  <line x1="200" y1="92" x2="400" y2="92" stroke="#e9d5ff" stroke-width="1"/>
+  <text x="212" y="110" font-family="'Courier New',monospace" font-size="11" fill="#6d28d9">eat(): void</text>
+
+  <!-- Connectors: Animal → Dog and Cat -->
+  <line x1="300" y1="125" x2="300" y2="162" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="130" y1="162" x2="470" y2="162" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="130" y1="162" x2="130" y2="183" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="470" y1="162" x2="470" y2="183" stroke="#94a3b8" stroke-width="1.5"/>
+
+  <!-- === DOG (subclass) === -->
+  <rect x="30" y="183" width="200" height="120" rx="6" fill="white"/>
+  <rect x="30" y="183" width="200" height="30" fill="#16a34a" clip-path="url(#d-clip)"/>
+  <rect x="30" y="183" width="200" height="120" rx="6" fill="none" stroke="#16a34a" stroke-width="2"/>
+  <text x="130" y="202" text-anchor="middle" font-family="'Courier New',monospace" font-size="13" font-weight="bold" fill="white">Dog</text>
+  <line x1="30" y1="213" x2="230" y2="213" stroke="#bbf7d0" stroke-width="1"/>
+  <text x="42" y="228" font-family="'Courier New',monospace" font-size="11" fill="#374151">breed: str</text>
+  <text x="42" y="241" font-family="'Courier New',monospace" font-size="10" fill="#9ca3af">↳ name, age (inherited)</text>
+  <line x1="30" y1="249" x2="230" y2="249" stroke="#bbf7d0" stroke-width="1"/>
+  <text x="42" y="264" font-family="'Courier New',monospace" font-size="11" fill="#15803d">bark(): void</text>
+  <text x="42" y="277" font-family="'Courier New',monospace" font-size="10" fill="#9ca3af">↳ eat() (inherited)</text>
+
+  <!-- === CAT (subclass) === -->
+  <rect x="370" y="183" width="200" height="120" rx="6" fill="white"/>
+  <rect x="370" y="183" width="200" height="30" fill="#2563eb" clip-path="url(#c-clip)"/>
+  <rect x="370" y="183" width="200" height="120" rx="6" fill="none" stroke="#2563eb" stroke-width="2"/>
+  <text x="470" y="202" text-anchor="middle" font-family="'Courier New',monospace" font-size="13" font-weight="bold" fill="white">Cat</text>
+  <line x1="370" y1="213" x2="570" y2="213" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="382" y="228" font-family="'Courier New',monospace" font-size="11" fill="#374151">indoor: bool</text>
+  <text x="382" y="241" font-family="'Courier New',monospace" font-size="10" fill="#9ca3af">↳ name, age (inherited)</text>
+  <line x1="370" y1="249" x2="570" y2="249" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="382" y="264" font-family="'Courier New',monospace" font-size="11" fill="#1d4ed8">meow(): void</text>
+  <text x="382" y="277" font-family="'Courier New',monospace" font-size="10" fill="#9ca3af">↳ eat() (inherited)</text>
+
+  <!-- Legend -->
+  <text x="300" y="314" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#9ca3af">Lines = inherits from · Dog and Cat both extend Animal</text>
+</svg>

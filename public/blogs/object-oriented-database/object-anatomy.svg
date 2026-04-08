@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 580 260" width="580" height="260">
+  <defs>
+    <clipPath id="box-clip">
+      <rect x="105" y="38" width="260" height="195" rx="6"/>
+    </clipPath>
+  </defs>
+
+  <!-- Background -->
+  <rect width="580" height="260" fill="#f8fafc" rx="8" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Title -->
+  <text x="235" y="24" text-anchor="middle" font-family="'Courier New',monospace" font-size="13" font-weight="bold" fill="#1e293b">Anatomy of a Persistent Object</text>
+
+  <!-- Box fill (white) -->
+  <rect x="105" y="38" width="260" height="195" rx="6" fill="white"/>
+  <!-- Header fill (purple, clipped to rounded box) -->
+  <rect x="105" y="38" width="260" height="37" fill="#7c3aed" clip-path="url(#box-clip)"/>
+  <!-- Box border -->
+  <rect x="105" y="38" width="260" height="195" rx="6" fill="none" stroke="#7c3aed" stroke-width="2"/>
+
+  <!-- Class name -->
+  <text x="235" y="55" text-anchor="middle" font-family="'Courier New',monospace" font-size="14" font-weight="bold" fill="white">Car</text>
+  <!-- OID -->
+  <text x="235" y="69" text-anchor="middle" font-family="'Courier New',monospace" font-size="10" fill="#ddd6fe">OID: 0x1A2B3C</text>
+
+  <!-- Divider 1 -->
+  <line x1="105" y1="75" x2="365" y2="75" stroke="#e2e8f0" stroke-width="1.5"/>
+
+  <!-- Attributes comment -->
+  <text x="117" y="90" font-family="'Courier New',monospace" font-size="10" fill="#9ca3af" font-style="italic">// attributes</text>
+  <!-- Attribute values -->
+  <text x="117" y="105" font-family="'Courier New',monospace" font-size="11" fill="#1e293b">brand = "Toyota"</text>
+  <text x="117" y="120" font-family="'Courier New',monospace" font-size="11" fill="#1e293b">speed = 120</text>
+  <text x="117" y="135" font-family="'Courier New',monospace" font-size="11" fill="#1e293b">color = "red"</text>
+
+  <!-- Divider 2 -->
+  <line x1="105" y1="143" x2="365" y2="143" stroke="#e2e8f0" stroke-width="1.5"/>
+
+  <!-- Methods comment -->
+  <text x="117" y="158" font-family="'Courier New',monospace" font-size="10" fill="#9ca3af" font-style="italic">// methods</text>
+  <!-- Method names -->
+  <text x="117" y="173" font-family="'Courier New',monospace" font-size="11" fill="#6d28d9">accelerate(amount)</text>
+  <text x="117" y="188" font-family="'Courier New',monospace" font-size="11" fill="#6d28d9">brake()</text>
+  <text x="117" y="203" font-family="'Courier New',monospace" font-size="11" fill="#6d28d9">getInfo(): str</text>
+
+  <!-- Annotation: Identity -->
+  <line x1="366" y1="57" x2="388" y2="57" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,2"/>
+  <text x="391" y="61" font-family="sans-serif" font-size="11" fill="#64748b">Identity</text>
+
+  <!-- Annotation: State -->
+  <line x1="366" y1="120" x2="388" y2="120" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,2"/>
+  <text x="391" y="124" font-family="sans-serif" font-size="11" fill="#64748b">State</text>
+
+  <!-- Annotation: Behavior -->
+  <line x1="366" y1="188" x2="388" y2="188" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,2"/>
+  <text x="391" y="192" font-family="sans-serif" font-size="11" fill="#64748b">Behavior</text>
+</svg>
