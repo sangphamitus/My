@@ -5,14 +5,20 @@ export default {
 	theme: {
 		extend: {
 			colors: {
-				paper: {
-					light: "#ffffff",
-					dark: "#1a1a2e",
-				},
-				accent: {
-					light: "#0066cc",
-					dark: "#6faadb",
-				},
+				/* ppsacrafts.io.vn palette */
+				parchment: "#F5EDD8",
+				linen: "#EDE0C8",
+				craftbrown: "#A0744A",
+				sepia: "#4A3728",
+				sage: "#B5C4A6",
+				dustyrose: "#CFA98C",
+				/* dark theme */
+				umber: "#1E1610",
+				mahogany: "#2C2017",
+				copper: "#C9916A",
+				cream: "#F0E6D0",
+				moss: "#7A9470",
+				clay: "#B8855E",
 			},
 			fontFamily: {
 				sans: [

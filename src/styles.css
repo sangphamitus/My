@@ -5,63 +5,65 @@
 
 :root {
   --article-font: "Literata", "Georgia", "Times New Roman", serif;
-  --paper-bg: #f4f1ea;
-  --paper-surface: #fffef9;
-  --paper-border: #e0d9c8;
-  --paper-text: #3d3632;
-  --paper-text-muted: #7a7067;
-  --paper-accent: #8b5a2b;
-  --paper-accent-hover: #6b4423;
-  --paper-shadow: rgba(139, 90, 43, 0.08);
-  --paper-link: #8b5a2b;
-  --paper-tag-bg: #ebe6d9;
-  --paper-tag-text: #5c534a;
-  --paper-tag-active-bg: #8b5a2b;
-  --paper-tag-active-text: #fffef9;
-  --paper-divider: #ddd5c4;
-  --nav-bg: rgba(244, 241, 234, 0.95);
-  
+  /* ppsacrafts.io.vn — Light theme */
+  --paper-bg: #F5EDD8;              /* Warm Parchment */
+  --paper-surface: #EDE0C8;         /* Aged Linen */
+  --paper-border: rgba(74, 55, 40, 0.15);
+  --paper-text: #4A3728;            /* Ink Sepia */
+  --paper-text-muted: #8C6E5A;
+  --paper-accent: #A0744A;          /* Craft Brown */
+  --paper-accent-hover: #CFA98C;    /* Dusty Rose */
+  --paper-shadow: rgba(74, 55, 40, 0.08);
+  --paper-link: #A0744A;
+  --paper-tag-bg: #DDD0B8;
+  --paper-tag-text: #5C4A3A;
+  --paper-tag-active-bg: #B5C4A6;   /* Faded Sage */
+  --paper-tag-active-text: #3A5030;
+  --paper-divider: rgba(74, 55, 40, 0.12);
+  --nav-bg: rgba(245, 237, 216, 0.95);
+
   /* Status colors */
-  --status-todo-bg: #e8e4dc;
-  --status-todo-text: #5c534a;
-  --status-progress-bg: #d4e8d4;
-  --status-progress-text: #2d5a2d;
-  --status-pending-bg: #f5e6c8;
-  --status-pending-text: #7a5a20;
-  --status-done-bg: #d0e0e8;
-  --status-done-text: #2a4a5a;
-  --status-stop-bg: #e8d4d4;
-  --status-stop-text: #6a3a3a;
+  --status-todo-bg: #E8DCC8;
+  --status-todo-text: #5C4A3A;
+  --status-progress-bg: #D4E8D0;
+  --status-progress-text: #2D5A2D;
+  --status-pending-bg: #F5E6C0;
+  --status-pending-text: #7A5A20;
+  --status-done-bg: #C8D8D0;
+  --status-done-text: #2A4A5A;
+  --status-stop-bg: #E8CCC8;
+  --status-stop-text: #6A3A3A;
 }
 
 .dark {
-  --paper-bg: #1c1a17;
-  --paper-surface: #252320;
-  --paper-border: #3d3a35;
-  --paper-text: #e8e4dc;
-  --paper-text-muted: #a09a8f;
-  --paper-accent: #d4a574;
-  --paper-accent-hover: #e8c4a0;
+  /* ppsacrafts.io.vn — Dark theme */
+  --paper-bg: #1E1610;              /* Deep Umber */
+  --paper-surface: #2C2017;         /* Dark Mahogany */
+  --paper-border: rgba(240, 230, 208, 0.10);
+  --paper-text: #F0E6D0;            /* Antique Cream */
+  --paper-text-muted: #A8957E;
+  --paper-accent: #C9916A;          /* Warm Copper */
+  --paper-accent-hover: #B8855E;    /* Burnished Clay */
   --paper-shadow: rgba(0, 0, 0, 0.4);
-  --paper-link: #d4a574;
-  --paper-tag-bg: #32302b;
-  --paper-tag-text: #b5ae9f;
-  --paper-tag-active-bg: #d4a574;
-  --paper-tag-active-text: #1c1a17;
-  --paper-divider: #3d3a35;
-  --nav-bg: rgba(28, 26, 23, 0.95);
-  
+  --paper-link: #C9916A;
+  --paper-tag-bg: #3A2C1E;
+  --paper-tag-text: #C4A880;
+  --paper-tag-active-bg: #7A9470;   /* Mossy Sage */
+  --paper-tag-active-text: #1A2C18;
+  --paper-divider: rgba(240, 230, 208, 0.10);
+  --nav-bg: rgba(30, 22, 16, 0.95);
+
   /* Status colors - dark mode */
-  --status-todo-bg: #3a3835;
-  --status-todo-text: #b5ae9f;
-  --status-progress-bg: #2a3a2a;
-  --status-progress-text: #8ac48a;
-  --status-pending-bg: #3a3520;
-  --status-pending-text: #d4b060;
-  --status-done-bg: #253540;
-  --status-done-text: #7ab0c8;
-  --status-stop-bg: #3a2a2a;
-  --status-stop-text: #c88a8a;
+  --status-todo-bg: #3A2C1E;
+  --status-todo-text: #C4A880;
+  --status-progress-bg: #1E3020;
+  --status-progress-text: #7AC87A;
+  --status-pending-bg: #3A2E10;
+  --status-pending-text: #D4B060;
+  --status-done-bg: #18303A;
+  --status-done-text: #7AB0C8;
+  --status-stop-bg: #3A1E1E;
+  --status-stop-text: #C88A8A;
 }
 
 * {
@@ -865,11 +867,11 @@ li {
 
 .search-input:focus {
   border-color: var(--paper-accent);
-  box-shadow: 0 0 0 3px rgba(139, 90, 43, 0.1);
+  box-shadow: 0 0 0 3px rgba(160, 116, 74, 0.15);
 }
 
 .dark .search-input:focus {
-  box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.15);
+  box-shadow: 0 0 0 3px rgba(201, 145, 106, 0.15);
 }
 
 .search-clear {
@@ -1326,3 +1328,42 @@ li {
   color: var(--paper-text-muted);
   border-top: 1px solid var(--paper-border);
 }
+
+/* ─── Craft texture overlay on body ─────────────────────────── */
+body {
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 23px,
+      rgba(74, 55, 40, 0.025) 23px,
+      rgba(74, 55, 40, 0.025) 24px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 23px,
+      rgba(74, 55, 40, 0.025) 23px,
+      rgba(74, 55, 40, 0.025) 24px
+    );
+}
+
+.dark body,
+.dark {
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 23px,
+      rgba(240, 230, 208, 0.03) 23px,
+      rgba(240, 230, 208, 0.03) 24px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 23px,
+      rgba(240, 230, 208, 0.03) 23px,
+      rgba(240, 230, 208, 0.03) 24px
+    );
+}
+

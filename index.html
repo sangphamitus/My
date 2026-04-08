@@ -4,9 +4,199 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>The Boring Site</title>
+    <title>Crafts</title>
+
+    <style>
+      /* ── Page loader ─────────────────────────────────────────────
+         Shown immediately from HTML; removed when React mounts.
+         Uses CSS custom properties so the JS theme-init script
+         can override them before a single frame is painted.
+      ─────────────────────────────────────────────────────────── */
+      :root {
+        --ldr-bg:  #F5EDD8;   /* Warm Parchment  */
+        --ldr-sq:  #DDD0B8;   /* neutral resting */
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --ldr-bg: #1E1610;
+          --ldr-sq: #3A2C1E;
+        }
+      }
+
+      /* 3 craft-color types — only the "on" (peak) color differs   */
+      /* Light                                                        */
+      .sq-b { --sq-c: #A0744A; }   /* Craft Brown  */
+      .sq-s { --sq-c: #8AAC78; }   /* saturated Sage */
+      .sq-r { --sq-c: #D4906A; }   /* saturated Dusty Rose */
+      /* Dark (applied when <html class="dark">)                     */
+      .dark .sq-b { --sq-c: #C9916A; }   /* Warm Copper    */
+      .dark .sq-s { --sq-c: #7A9470; }   /* Mossy Sage     */
+      .dark .sq-r { --sq-c: #B8855E; }   /* Burnished Clay */
+
+      #page-loader {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background: var(--ldr-bg);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        opacity: 1;
+        transition: opacity 0.35s ease;
+      }
+      #page-loader.fading {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      /* 5 × 5 grid */
+      .craft-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 14px);
+        gap: 6px;
+      }
+      .craft-sq {
+        width: 14px;
+        height: 14px;
+        border-radius: 3px;
+        background: var(--ldr-sq);
+        animation: craft-weave 1.6s ease-in-out infinite;
+      }
+
+      /* Diagonal wave — delay = (row + col) × 100 ms */
+      .craft-sq:nth-child(1)  { animation-delay:   0ms; }
+      .craft-sq:nth-child(2)  { animation-delay: 100ms; }
+      .craft-sq:nth-child(3)  { animation-delay: 200ms; }
+      .craft-sq:nth-child(4)  { animation-delay: 300ms; }
+      .craft-sq:nth-child(5)  { animation-delay: 400ms; }
+      .craft-sq:nth-child(6)  { animation-delay: 100ms; }
+      .craft-sq:nth-child(7)  { animation-delay: 200ms; }
+      .craft-sq:nth-child(8)  { animation-delay: 300ms; }
+      .craft-sq:nth-child(9)  { animation-delay: 400ms; }
+      .craft-sq:nth-child(10) { animation-delay: 500ms; }
+      .craft-sq:nth-child(11) { animation-delay: 200ms; }
+      .craft-sq:nth-child(12) { animation-delay: 300ms; }
+      .craft-sq:nth-child(13) { animation-delay: 400ms; }
+      .craft-sq:nth-child(14) { animation-delay: 500ms; }
+      .craft-sq:nth-child(15) { animation-delay: 600ms; }
+      .craft-sq:nth-child(16) { animation-delay: 300ms; }
+      .craft-sq:nth-child(17) { animation-delay: 400ms; }
+      .craft-sq:nth-child(18) { animation-delay: 500ms; }
+      .craft-sq:nth-child(19) { animation-delay: 600ms; }
+      .craft-sq:nth-child(20) { animation-delay: 700ms; }
+      .craft-sq:nth-child(21) { animation-delay: 400ms; }
+      .craft-sq:nth-child(22) { animation-delay: 500ms; }
+      .craft-sq:nth-child(23) { animation-delay: 600ms; }
+      .craft-sq:nth-child(24) { animation-delay: 700ms; }
+      .craft-sq:nth-child(25) { animation-delay: 800ms; }
+
+      /* Each square pulses to its own craft color and softens to a circle */
+      @keyframes craft-weave {
+        0%, 100% {
+          background: var(--ldr-sq);
+          transform: scale(1);
+          border-radius: 3px;
+        }
+        50% {
+          background: var(--sq-c);
+          transform: scale(0.78);
+          border-radius: 50%;
+        }
+      }
+
+      .craft-loader-label {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 0.875rem;
+        letter-spacing: 0.2em;
+        text-transform: lowercase;
+        color: var(--ldr-sq);
+        margin: 0;
+        animation: craft-label-pulse 2s ease-in-out infinite;
+        filter: brightness(0.7);
+      }
+      @keyframes craft-label-pulse {
+        0%, 100% { opacity: 0.45; }
+        50%       { opacity: 1;   }
+      }
+    </style>
+
+    <!--
+      Runs before first paint.
+      Reads localStorage so loader colors match the user's saved theme,
+      regardless of system preference.
+    -->
+    <script>
+      (function () {
+        var saved  = localStorage.getItem('theme');
+        var sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var dark   = saved === 'dark' || (!saved && sysDark);
+        if (dark) {
+          document.documentElement.classList.add('dark');
+          var s = document.documentElement.style;
+          s.setProperty('--ldr-bg', '#1E1610');
+          s.setProperty('--ldr-sq', '#3A2C1E');
+        } else if (saved === 'light' && sysDark) {
+          /* User explicitly saved light while system is dark */
+          var s = document.documentElement.style;
+          s.setProperty('--ldr-bg', '#F5EDD8');
+          s.setProperty('--ldr-sq', '#DDD0B8');
+        }
+      })();
+    </script>
   </head>
+
   <body>
+    <!--
+      5×5 cross-stitch grid.
+      Color types (diagonal pattern, (row+col) % 3):
+        0 → sq-b  Craft Brown / Warm Copper
+        1 → sq-s  Sage / Mossy Sage
+        2 → sq-r  Dusty Rose / Burnished Clay
+
+      Row 0: B S R B S
+      Row 1: S R B S R
+      Row 2: R B S R B
+      Row 3: B S R B S
+      Row 4: S R B S R
+    -->
+    <div id="page-loader" role="status" aria-label="Loading">
+      <div class="craft-grid">
+        <!-- row 0 -->
+        <div class="craft-sq sq-b"></div>
+        <div class="craft-sq sq-s"></div>
+        <div class="craft-sq sq-r"></div>
+        <div class="craft-sq sq-b"></div>
+        <div class="craft-sq sq-s"></div>
+        <!-- row 1 -->
+        <div class="craft-sq sq-s"></div>
+        <div class="craft-sq sq-r"></div>
+        <div class="craft-sq sq-b"></div>
+        <div class="craft-sq sq-s"></div>
+        <div class="craft-sq sq-r"></div>
+        <!-- row 2 -->
+        <div class="craft-sq sq-r"></div>
+        <div class="craft-sq sq-b"></div>
+        <div class="craft-sq sq-s"></div>
+        <div class="craft-sq sq-r"></div>
+        <div class="craft-sq sq-b"></div>
+        <!-- row 3 -->
+        <div class="craft-sq sq-b"></div>
+        <div class="craft-sq sq-s"></div>
+        <div class="craft-sq sq-r"></div>
+        <div class="craft-sq sq-b"></div>
+        <div class="craft-sq sq-s"></div>
+        <!-- row 4 -->
+        <div class="craft-sq sq-s"></div>
+        <div class="craft-sq sq-r"></div>
+        <div class="craft-sq sq-b"></div>
+        <div class="craft-sq sq-s"></div>
+        <div class="craft-sq sq-r"></div>
+      </div>
+      <p class="craft-loader-label">crafts</p>
+    </div>
+
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
